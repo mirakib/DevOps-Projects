@@ -145,7 +145,7 @@ HTML_TEMPLATE = """
         </div>
 
         <div class="footer">
-            Container Image: flask-ultimate-fancy:v5 | Source: Basic Web Application with Docker Folder
+            Source: github/mirakib/Basic Web Application with Docker Folder/Multi-Stage-Build
         </div>
     </div>
 </body>
