@@ -1,7 +1,3 @@
-
-
-
-
 # Stage 1: The Builder Stage
 
 FROM python:3.10-slim AS builder
