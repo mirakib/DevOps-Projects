@@ -3,11 +3,24 @@ import sys
 from django.conf import settings
 from django.urls import path
 from django.http import HttpResponse
+from django.core.management import execute_from_command_line
 
-# Configure Django settings
+# 1. Django Configuration
+
+# Set DEBUG explicitly to True for development mode inside the container.
+# If DEBUG is False, Django requires ALLOWED_HOSTS to be set.
+DEBUG = True
+
 settings.configure(
     # Secret Key is required for security
     SECRET_KEY='django-insecure-secret-key-for-docker-app', 
+    
+    # Explicitly set DEBUG based on the variable above
+    DEBUG=DEBUG,
+    
+    # REQUIRED FIX: If DEBUG is False (or implicitly becomes False), 
+    # ALLOWED_HOSTS must be defined. We set it to accept all hosts ('*').
+    ALLOWED_HOSTS=['*'],
     
     # Define a minimal set of installed apps
     INSTALLED_APPS=[
@@ -24,6 +37,7 @@ settings.configure(
         'APP_DIRS': True,
     }],
     
+    # Configure static files (required by installed apps)
     STATIC_URL='/static/',
 )
 
@@ -182,13 +196,11 @@ def home(request):
     """Simple view to return the hardcoded HTML response."""
     return HttpResponse(HTML_TEMPLATE)
 
-
 urlpatterns = [
     path('', home),
 ]
 
 if __name__ == '__main__':
-    from django.core.management import execute_from_command_line
     
     # Set default environment variable for the port if not specified
     if not os.environ.get('PORT'):
