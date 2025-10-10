@@ -23,18 +23,6 @@ Learn the basic workflow of Docker with Django:
 
 Create a project directory, and within it, create the necessary Django files.
 
-#### Project Structure
-```
-django-hello-world/
-├── manage.py
-├── requirements.txt
-├── Dockerfile
-└── myproject/
-    ├── __init__.py
-    ├── settings.py
-    ├── urls.py
-    └── wsgi.py
-```
 
 #### `requirements.txt` (Application Dependencies)
 
