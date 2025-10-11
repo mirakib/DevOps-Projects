@@ -14,7 +14,6 @@ FROM python:3.10-alpine
 
 WORKDIR /app
 
-# Copy the Flask dependency files from the builder stage
 COPY --from=builder /root/.local/lib/python3.10/site-packages /usr/local/lib/python3.10/site-packages
 
 COPY app.py .
