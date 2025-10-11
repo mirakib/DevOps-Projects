@@ -27,6 +27,7 @@ app.MapGet("/", () =>
 </head>
 <body>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     <div class="dashboard">
         
         <div class="header">
@@ -72,10 +73,15 @@ app.MapGet("/", () =>
             Source: github/mirakib/ASP.NET Static Frontend Application
         </div>
 =======
+=======
+>>>>>>> Stashed changes
     <div class="card">
         <h1>Hello from .NET Core! 🚀</h1>
         <p>This minimal ASP.NET Core 8 application is running successfully inside a Docker container.</p>
         <div class="footer">Built using Multi-Stage Docker by Moshrekul Islam</div>
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
     </div>
 </body>
