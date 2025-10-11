@@ -123,9 +123,9 @@ app.MapGet("/", () =>
             <div class="card">
                 <h2><i class="fab fa-python"></i> Technology Stack</h2>
                 <p>
-                    <strong>Language:</strong> Python 3.11+<br>
-                    <strong>Framework:</strong> Django (Micro-Framework)<br>
-                    <strong>Container Runtime:</strong> Docker (Alpine Multi-Stage Build)
+                    <strong>Language:</strong> C#<br>
+                    <strong>Framework:</strong> ASP.NET Core 8.0<br>
+                    <strong>Container Runtime:</strong> mcr.microsoft.com/dotnet/aspnet:8.0
                 </p>
             </div>
             
@@ -133,8 +133,8 @@ app.MapGet("/", () =>
             <div class="card">
                 <h2><i class="fas fa-server"></i> Environment Details</h2>
                 <p>
-                    <strong>Internal Port:</strong> 8000<br>
-                    <strong>External Port:</strong> 8000 (Mapped)<br>
+                    <strong>Internal Port:</strong> 8080<br>
+                    <strong>External Port:</strong> 8080 (Mapped)<br>
                     <strong>Running OS:</strong> Alpine Linux (Optimized)
                 </p>
             </div>
@@ -152,7 +152,7 @@ app.MapGet("/", () =>
         </div>
 
         <div class="footer">
-            Source: github/mirakib/Django Static Frontend Application
+            Source: github/mirakib/ASP.NET Static Frontend Application
         </div>
     </div>
 </body>
