@@ -11,7 +11,7 @@ app.MapGet("/", () =>
 {
     // A quick, modern HTML response
     return Results.Content("""
-        <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -157,7 +157,7 @@ app.MapGet("/", () =>
     </div>
 </body>
 </html>
-    """, "text/html");
+""", "text/html");
 });
 
 // Run the application
