@@ -1,15 +1,14 @@
-# Stage 1: The Builder Stage
-FROM php:8.3-fpm AS build
+# Stage 1:
+FROM php:8.3 AS build
 
-WORKDIR /app
-
-# Stage 2: The Final / Runtime Stage
-FROM php:8.3-fpm-alpine
+# Stage 2:
+FROM php:8.3-apache 
 
 WORKDIR /var/www/html
 
 COPY index.php .
 
-EXPOSE 9000
+# Apache listens on port 80 by default
+EXPOSE 80 
 
-CMD ["php-fpm"]
+CMD ["apache2-foreground"]

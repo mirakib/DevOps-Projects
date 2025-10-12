@@ -55,7 +55,7 @@
                 <!-- New GitHub Source Link -->
                 <div class="col-span-2 mt-2">
                     <span class="font-bold text-green-400">SOURCE REPO:</span> 
-                    <a href="https://github.com/moshrekul/docker-project" class="underline text-green-400 hover:text-green-200" target="_blank">View on GitHub</a>
+                    <a href="https://github.com/mirakib/DevOps-Projects/tree/main/Docker/PHP%20Static%20Frontend%20Application" class="underline text-green-400 hover:text-green-200" target="_blank">View on GitHub</a>
                 </div>
             </div>
         </div>
