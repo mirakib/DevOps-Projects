@@ -47,7 +47,7 @@
                     <span class="font-bold text-green-400">BUILD STRATEGY:</span> Self-Contained Multi-Stage
                 </div>
                 <div>
-                    <span class="font-bold text-green-400">FINAL IMAGE:</span> php:8.3-fpm-alpine
+                    <span class="font-bold text-green-400">FINAL IMAGE:</span> php:8.3-apache 
                 </div>
                 <div>
                     <span class="font-bold text-green-400">AUTHOR:</span> Moshrekul Islam
