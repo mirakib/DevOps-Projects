@@ -1,70 +1,108 @@
-# Project: Optimized PHP Static Site Containerization 🐘
+# Project: Lightweight PHP Static Site 🐘
 
-This project focuses on containerizing a minimal PHP web application using a multi-stage Docker build. The primary objective is to demonstrate how to deploy PHP applications with the smallest possible container image by discarding unnecessary build tools, achieving high efficiency and security.
+This project packages a minimal PHP static site inside a tiny Alpine-based image that uses PHP's built-in development server. The result is a fast-to-build container ideal for demos or lightweight prototypes.
+
+---
 
 ## 🎯 Goal
-1. Understand and implement a multi-stage Docker build pattern for PHP applications.
-2. Differentiate between the build stage (with development tools) and the final runtime stage (minimal image).
-3. Build a final container image that is significantly smaller than a single-stage build.
-4. Learn best practices for containerizing PHP applications.
-5. Understand the use of PHP-FPM in a containerized environment.
-6. Explore the use of Alpine Linux for minimal base images.
 
+1. Run a simple PHP page with Docker using the official CLI image.
+2. Demonstrate a compact single-stage Dockerfile for PHP applications.
+3. Serve content over port 8080 via PHP's built-in web server.
+4. Keep the container footprint minimal by relying on Alpine Linux.
+
+---
 
 ## 🛠️ Tech Stack
-- **Application**: Simple PHP Static Web Page
-- **Language**: PHP (version 8.3)
-- **Runtime**: PHP-FPM (FastCGI Process Manager)
-- **Containerization**: Docker (Multi-Stage Build)
-- **Base Image**: php:8.3-fpm-alpine (Minimal production base)
 
+- **Application**: Static PHP page
+- **Language**: PHP 8.3
+- **Runtime**: PHP built-in server (`php -S`)
+- **Base Image**: `php:8.3-cli-alpine`
+- **Containerization**: Docker (single-stage build)
+
+---
 
 ## 📝 Implementation Steps
 
-The process involves creating the application files and then building the optimized image.
+### 1. Prepare the project files
 
-### Set Up Your Files
+- `index.php`: Your PHP entry point.
+- `Dockerfile`: Declares the container build.
 
-Create a project directory (e.g., php-web-app/) containing two files:
 
-    index.php: Contains the PHP code and HTML structure.
 
-    Dockerfile: Defines the multi-stage build process.
+### 2. Review the Dockerfile
 
-### Define the Multi-Stage Build
+#### Note: Standard Version Using Base Image.
+           Setup: Simple production 
+           “SAPIs” (Server APIs): Apache
+           Image Size: 506MB
 
-The Dockerfile is split into two stages:
+```dockerfile
+# Stage 1:
+FROM php:8.3 AS build
 
-    Stage 1 (build): Used to compile or install any necessary dependencies (though minimal for this static example).
+# Stage 2:
+FROM php:8.3-apache 
 
-    Stage 2 (Final): Starts from the tiny php:8.3-fpm-alpine base and copies only the index.php file, resulting in a significantly smaller final image.
+WORKDIR /var/www/html
 
-### Build the Docker Image
+COPY index.php .
 
-Execute the build command from your project directory:
-Bash
+# Apache listens on port 80 by default
+EXPOSE 80 
 
-```docker build -t php-fpm-alpine:v1 .```
-
-### Run the Container
-
-Launch the container, mapping a host port (e.g., 8080) to the PHP-FPM internal port (9000):
-Bash
-
-```docker run -d -p 8080:9000 --name php-app-live php-fpm-alpine:v1```
-
-📈 Verification
-
-The container will run the PHP-FPM process internally. To verify success:
-
-    Check Status: Run docker ps and confirm the php-app-live container is running (Up).
-
-    Check Logs: Run docker logs php-app-live to ensure the FPM server started without errors. (Note: To view the website in your browser, this container requires a web server like Nginx or Apache acting as a reverse proxy, which is a setup typically handled by Docker Compose.)
-
-🧹 Cleanup
-
-Stop and remove the container when you are finished testing:
-```Bash
-docker stop php-app-live
-docker rm php-app-live
+CMD ["apache2-foreground"]
 ```
+
+#### Note: Optimized Version Using Alpine Image.
+           Setup: Dev/Test
+           “SAPIs” (Server APIs): CLI (php -S)
+           Image Size: 107MB
+
+```dockerfile
+FROM php:8.3-cli-alpine
+WORKDIR /var/www/html
+COPY index.php .
+
+EXPOSE 8080
+CMD ["php", "-S", "0.0.0.0:8080", "-t", "/var/www/html"]
+```
+
+| Setup                        | What’s Serving Requests      | Suitable For    | Multi-threaded? |
+|------------------------------|-----------------------------|-----------------|-----------------|
+| php:8.3-cli-alpine + php -S  | PHP’s built-in HTTP server  | Dev / Local     | ❌              |
+| php:8.3-apache               | Apache                      | Production      | ✅              |
+| php:8.3-fpm + Nginx          | Nginx + FPM                 | Production      | ✅              |
+
+
+The image copies the application into `/var/www/html`, exposes port 8080, and starts PHP's built-in server to handle requests.
+
+### 3. Build the Docker image
+
+```bash
+docker build -t php-lite-static:v1 .
+```
+
+### 4. Start the container
+
+Map port 8080 from the container to your host and launch in detached mode:
+
+```bash
+docker run -d -p 8080:8080 --name php-lite-app php-lite-static:v1
+```
+
+---
+
+## 📈 Verification
+
+
+1. Open a browser and visit [http://localhost:8080](http://localhost:8080) to confirm the page loads.
+
+
+
+## 🔍 Why the Built-in Server?
+
+- Keeps the container image extremely small and quick to build.
+- Great for rapid prototyping and educational use cases.

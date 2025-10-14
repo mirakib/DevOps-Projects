@@ -1,14 +1,9 @@
-# Stage 1:
-FROM php:8.3 AS build
-
-# Stage 2:
-FROM php:8.3-apache 
-
+FROM php:8.3-cli-alpine
 WORKDIR /var/www/html
-
 COPY index.php .
 
-# Apache listens on port 80 by default
-EXPOSE 80 
+# Expose any port you want
+EXPOSE 8080
 
-CMD ["apache2-foreground"]
+# Use PHP's built-in web server
+CMD ["php", "-S", "0.0.0.0:8080", "-t", "/var/www/html"]
