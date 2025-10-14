@@ -70,6 +70,25 @@ EXPOSE 8080
 CMD ["php", "-S", "0.0.0.0:8080", "-t", "/var/www/html"]
 ```
 
+⚠️ Limitations
+
+1. The PHP built-in web server is:
+2. Single-threaded → handles one request at a time
+3. Not optimized → no caching, compression, or load balancing
+4. For development only, per the official PHP docs
+
+Perfect for:
+✅ Quick testing
+✅ Local dev containers
+✅ CI/CD previews
+
+Not good for:
+❌ High traffic production sites
+❌ SSL, caching, advanced routing
+
+
+✅ TL;DR
+
 | Setup                        | What’s Serving Requests      | Suitable For    | Multi-threaded? |
 |------------------------------|-----------------------------|-----------------|-----------------|
 | php:8.3-cli-alpine + php -S  | PHP’s built-in HTTP server  | Dev / Local     | ❌              |
