@@ -1,0 +1,84 @@
+.shell {
+  display: grid;
+  gap: 1.5rem;
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.panel {
+  border: 2px solid #00ff00;
+  padding: 1.5rem;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.headline {
+  font-size: 2.5rem;
+  letter-spacing: 0.2rem;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin: 0;
+}
+
+.subtitle {
+  margin-top: 0.5rem;
+  color: #63ff63;
+  letter-spacing: 0.15rem;
+}
+
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.body {
+  color: #d4ffd4;
+  margin-bottom: 1.25rem;
+}
+
+.body--accent {
+  color: #63ff63;
+  font-weight: 600;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1rem 2rem;
+}
+
+.grid dt {
+  font-size: 0.75rem;
+  color: #63ff63;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+}
+
+.grid dd {
+  margin: 0.25rem 0 0;
+  font-size: 0.95rem;
+  color: #ffffff;
+}
+
+.grid a {
+  color: #63ff63;
+}
+
+.grid .full {
+  grid-column: 1 / -1;
+}
+
+.footer {
+  text-align: center;
+  color: #63ff63;
+  letter-spacing: 0.15rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
