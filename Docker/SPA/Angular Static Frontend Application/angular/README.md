@@ -1,6 +1,8 @@
 # Angular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.1.
+This project now targets [Angular CLI](https://github.com/angular/angular-cli) version 18.x.
+
+> After pulling the latest changes, run `npm install` to refresh dependencies and regenerate `package-lock.json`.
 
 ## Development server
 
