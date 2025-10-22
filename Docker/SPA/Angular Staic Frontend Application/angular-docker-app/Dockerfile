@@ -39,6 +39,9 @@ COPY --from=builder /app/dist/browser /usr/share/nginx/html
 # Copy custom nginx configuration to serve SPA routes
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
+# Ensure nginx can read the files (fixes possible 403 due to permissions)
+RUN chown -R nginx:nginx /usr/share/nginx/html \
+ && chmod -R 755 /usr/share/nginx/html
+
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
-
