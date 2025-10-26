@@ -1,5 +1,8 @@
 # AngularDockerInitApp
 
+[![Tech Stack](https://skillicons.dev/icons?i=angular,typescript,nodejs,nginx,docker)](https://skillicons.dev)
+
+
 <img width="1129" height="464" alt="AngularInitAppSuccess" src="https://github.com/user-attachments/assets/265ee577-4b2d-4a46-a3b4-2c4730c3516e" />
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.6.

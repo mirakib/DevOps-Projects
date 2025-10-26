@@ -1,4 +1,6 @@
-# Project: Containerizing a Simple Django "Hello World" App 🐳
+# Project: Containerizing a Simple Django "Hello World" App 
+
+[![Tech Stack](https://skillicons.dev/icons?i=django,html,css,python,docker)](https://skillicons.dev)
 
 This project is a hands-on introduction to Docker with Django. You'll take a basic web application built with the Python Django framework and package it into a self-contained, portable unit called a Docker container. This demonstrates the core concept of Docker: making applications run consistently across any environment.
 

@@ -1,5 +1,6 @@
 # Project: Optimized ASP.NET Core Containerization 🐳
 
+[![Tech Stack](https://skillicons.dev/icons?i=net,html,css,docker)](https://skillicons.dev)
 
 This project demonstrates the best practice for containerizing modern .NET applications using a multi-stage Docker build. Unlike simpler applications, .NET requires the large Software Development Kit (SDK) for compilation and publishing, but only the lightweight ASP.NET Runtime to execute the final application. The multi-stage approach ensures that the final production image is stripped of all development dependencies, resulting in a minimal, secure, and highly efficient container.
 

@@ -2,7 +2,7 @@
 
 This project packages a minimal PHP static site inside a tiny Alpine-based image that uses PHP's built-in development server. The result is a fast-to-build container ideal for demos or lightweight prototypes.
 
----
+[![Tech Stack](https://skillicons.dev/icons?i=php,html,tailwind,docker)](https://skillicons.dev)
 
 ## 🎯 Goal
 

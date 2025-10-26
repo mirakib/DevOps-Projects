@@ -3,6 +3,8 @@
 
 This project is a hands-on introduction to Docker. You'll take a basic web application built with the Python Flask framework and package it into a self-contained, portable unit called a Docker container. This demonstrates the core concept of Docker: making applications run consistently across any environment.
 
+[![Tech Stack](https://skillicons.dev/icons?i=flask,python,docker)](https://skillicons.dev)
+
 ## 🎯 Goal
 
 Learn the basic workflow of Docker:
