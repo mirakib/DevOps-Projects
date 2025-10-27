@@ -46,7 +46,7 @@ npm run dev
 
 Create a `Dockerfile` in the project root with the following content:
 
-```
+```Dockerfile
 # ---------- STAGE 1: build the React app ----------
 FROM node:20-alpine AS builder
 
