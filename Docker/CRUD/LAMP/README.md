@@ -1,49 +1,47 @@
-## Dockerized LAMP Stack with Prometheus & Grafana Monitoring
+<div style="display: flex; align-items: center; gap: 10px;">
+  <img src="https://skillicons.dev/icons?i=linux" style="height: 40px;"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/apache/apache-original.svg" style="height: 40px;"/>
+  <img src="https://skillicons.dev/icons?i=mysql,php,prometheus,grafana,docker" style="height: 40px;"/>  
+</div>
 
-A containerized LAMP (Linux, Apache, MySQL, PHP) application deployed using Docker Compose, integrated with Prometheus and Grafana for real-time performance monitoring and metrics visualization.
+## LAMP STACK CRUD Application using Docker
 
-![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=mirakib&repo=dockerize-lamp-monitoring-stack)
+A containerized LAMP (Linux, Apache, MySQL, PHP) application deployed using Docker Compose.
+
 
 ## Features
 
 - **LAMP Stack** (Apache, MySQL, PHP) for a CRUD web app  
-- **Prometheus** for collecting metrics  
-- **Grafana** for visualization dashboards  
-- **Exporters** for Apache, MySQL, and Node metrics  
 - Fully containerized and network-isolated  
 - Easy to extend or deploy on any Docker host  
 
 ---
+## Execution Steps
 
-## Architecture
+1. Clone the repository:
 
-[ Apache (PHP App) ] → [ Apache Exporter ] ┐
+   ```bash
+   git clone https://github.com/mirakib/docker-lamp-crud.git
+   cd docker-lamp-crud
+   ```
 
-[ MySQL Database ] → [ MySQL Exporter ] ├──> [ Prometheus ] → [ Grafana ]
+2. Build and start the containers:
 
-[ Host System ] → [ Node Exporter ] ┘
+   ```bash
+   docker-compose up -d
+   ```
 
-## Project Structure
+3. Stop the containers when done:
 
-project/
+   ```bash
+   docker-compose down
+   ```
 
-├── apache/
+## Output
 
-│ ├── Dockerfile 
-
-│ ├── 000-default.conf 
-
-│ └── index.php 
-
-│
-
-├── prometheus/
-
-│ └── prometheus.yml 
-
-│
-
-└── compose.yml 
+![lamp-crud-output-image](image-1.png)
 
 
+#### A Extended version of this project can be found here:
 
+- [Dockerized LAMP Stack with Prometheus & Grafana Monitoring](https://github.com/mirakib/dockerize-lamp-monitoring-stack)
