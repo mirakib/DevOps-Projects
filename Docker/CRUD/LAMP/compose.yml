@@ -1,27 +1,30 @@
-version: '3.9'
+version: '3.8'
 
 services:
-  web:
-    image: php:8.2-apache
-    container_name: lamp_web
-    volumes:
-      - ./src:/var/www/html
+  apache:
+    build: ./apache
     ports:
-      - "8080:80"
+      - "8000:80"
     depends_on:
-      - db
-
-  db:
-    image: mysql:8.0
-    container_name: lamp_db
-    restart: always
+      - mysql
+    networks:
+      - lampnet
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: myapp
-      MYSQL_USER: user
-      MYSQL_PASSWORD: userpass
+      - TZ=Asia/Dhaka
+
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: mydb
     volumes:
       - db_data:/var/lib/mysql
+      - ./mysql/init-exporter.sql:/docker-entrypoint-initdb.d/init-exporter.sql:ro
+    networks:
+      - lampnet
 
 volumes:
   db_data:
+
+networks:
+  lampnet:
