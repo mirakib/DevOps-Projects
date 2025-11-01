@@ -83,67 +83,59 @@ if ($result) {
 <head>
   <meta charset="UTF-8">
   <title>LAMP CRUD MONITORING</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 40px; color: #1a202c; }
-    h1 { color: #2d3748; }
-    form { margin-bottom: 20px; padding: 16px; border: 1px solid #e2e8f0; border-radius: 8px; max-width: 400px; }
-    label { display: block; margin-bottom: 8px; font-weight: 600; }
-    input { width: 100%; padding: 8px; margin-bottom: 12px; border: 1px solid #cbd5e0; border-radius: 4px; }
-    button { padding: 8px 16px; border: none; border-radius: 4px; background-color: #3182ce; color: #fff; cursor: pointer; }
-    table { border-collapse: collapse; width: 100%; margin-top: 24px; }
-    th, td { border: 1px solid #e2e8f0; padding: 10px; text-align: left; }
-    th { background-color: #edf2f7; }
-    a { color: #2b6cb0; text-decoration: none; }
-    .message { margin-bottom: 16px; color: #2f855a; font-weight: 600; }
-  </style>
+  <!-- Tailwind CDN for quick styling -->
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <h1>PHP + MySQL CRUD</h1>
+<body class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700 text-slate-100">
+  <div class="max-w-6xl mx-auto p-6">
+    <h1 class="text-3xl font-extrabold mb-4 text-white">PHP + MySQL CRUD</h1>
   <?php if ($message): ?>
-    <div class="message"><?php echo htmlspecialchars($message); ?></div>
+    <div class="mb-4 p-3 rounded text-green-200 bg-green-800/30 font-semibold"><?php echo htmlspecialchars($message); ?></div>
   <?php endif; ?>
-  <form method="post" action="">
+  <form method="post" action="" class="bg-white/5 backdrop-blur-md p-6 rounded-lg shadow-md max-w-md">
     <input type="hidden" name="action" value="<?php echo $currentRecord ? 'update' : 'create'; ?>">
     <?php if ($currentRecord): ?>
       <input type="hidden" name="id" value="<?php echo (int) $currentRecord['id']; ?>">
     <?php endif; ?>
-    <label for="name">Name</label>
-    <input id="name" name="name" type="text" value="<?php echo htmlspecialchars($currentRecord['name'] ?? ''); ?>" required>
-    <label for="email">Email</label>
-    <input id="email" name="email" type="email" value="<?php echo htmlspecialchars($currentRecord['email'] ?? ''); ?>" required>
-    <button type="submit"><?php echo $currentRecord ? 'Update' : 'Create'; ?> Record</button>
-    <?php if ($currentRecord): ?>
-      <a href="index.php" style="margin-left:12px;">Cancel</a>
-    <?php endif; ?>
+    <label for="name" class="block text-sm font-medium text-slate-200 mb-2">Name</label>
+    <input id="name" name="name" type="text" value="<?php echo htmlspecialchars($currentRecord['name'] ?? ''); ?>" required class="w-full px-3 py-2 mb-3 rounded-md bg-white/5 border border-slate-600 text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-400">
+    <label for="email" class="block text-sm font-medium text-slate-200 mb-2">Email</label>
+    <input id="email" name="email" type="email" value="<?php echo htmlspecialchars($currentRecord['email'] ?? ''); ?>" required class="w-full px-3 py-2 mb-3 rounded-md bg-white/5 border border-slate-600 text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-400">
+    <div class="flex items-center">
+      <button type="submit" class="inline-flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-md font-semibold"><?php echo $currentRecord ? 'Update' : 'Create'; ?> Record</button>
+      <?php if ($currentRecord): ?>
+        <a href="index.php" class="ml-3 text-sm text-indigo-200 hover:underline">Cancel</a>
+      <?php endif; ?>
+    </div>
   </form>
-  <table>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Created</th>
-        <th>Updated</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
+  <div class="mt-8 overflow-x-auto">
+    <table class="min-w-full divide-y divide-slate-700 bg-white/5 rounded-lg overflow-hidden">
+      <thead class="bg-white/3">
+        <tr>
+          <th class="px-4 py-3 text-left text-sm font-semibold text-slate-200">ID</th>
+          <th class="px-4 py-3 text-left text-sm font-semibold text-slate-200">Name</th>
+          <th class="px-4 py-3 text-left text-sm font-semibold text-slate-200">Email</th>
+          <th class="px-4 py-3 text-left text-sm font-semibold text-slate-200">Created</th>
+          <th class="px-4 py-3 text-left text-sm font-semibold text-slate-200">Updated</th>
+          <th class="px-4 py-3 text-left text-sm font-semibold text-slate-200">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-slate-700">
     <?php if (count($records) === 0): ?>
       <tr>
         <td colspan="6">No records yet.</td>
       </tr>
     <?php else: ?>
       <?php foreach ($records as $row): ?>
-        <tr>
-          <td><?php echo (int) $row['id']; ?></td>
-          <td><?php echo htmlspecialchars($row['name']); ?></td>
-          <td><?php echo htmlspecialchars($row['email']); ?></td>
-          <td><?php echo htmlspecialchars($row['created_at']); ?></td>
-          <td><?php echo htmlspecialchars($row['updated_at']); ?></td>
-          <td>
-            <a href="?edit=<?php echo (int) $row['id']; ?>">Edit</a>
-            |
-            <a href="?delete=<?php echo (int) $row['id']; ?>" onclick="return confirm('Delete this record?');">Delete</a>
+        <tr class="odd:bg-white/2 even:bg-transparent">
+          <td class="px-4 py-3 text-sm text-slate-100"><?php echo (int) $row['id']; ?></td>
+          <td class="px-4 py-3 text-sm text-slate-100"><?php echo htmlspecialchars($row['name']); ?></td>
+          <td class="px-4 py-3 text-sm text-slate-100"><?php echo htmlspecialchars($row['email']); ?></td>
+          <td class="px-4 py-3 text-sm text-slate-100"><?php echo htmlspecialchars($row['created_at']); ?></td>
+          <td class="px-4 py-3 text-sm text-slate-100"><?php echo htmlspecialchars($row['updated_at']); ?></td>
+          <td class="px-4 py-3 text-sm">
+            <a href="?edit=<?php echo (int) $row['id']; ?>" class="text-indigo-300 hover:underline mr-2">Edit</a>
+            <a href="?delete=<?php echo (int) $row['id']; ?>" onclick="return confirm('Delete this record?');" class="text-red-300 hover:underline">Delete</a>
           </td>
         </tr>
       <?php endforeach; ?>
