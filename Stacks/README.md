@@ -17,7 +17,19 @@ A stack is a set (or “stack”) of technologies that work together to build an
 4. **MERN**	- MongoDB, Express.js, React, Node.js
 5. **MEVN**	- MongoDB, Express.js, Vue.js, Node.js
 
-## Demo Project List:
+
+## Dockerized versions
+
+1. LAMP CRUD
+   
+   https://github.com/mirakib/DevOps-Projects/tree/main/Docker/CRUD/LAMP
+   
+3. LEMP CRUD
+   
+   https://github.com/mirakib/DevOps-Projects/tree/main/Docker/CRUD/LEMP
+
+
+## Other Project List:
 
 1. Dockerized LAMP Stack with Prometheus & Grafana Monitoring.
 
