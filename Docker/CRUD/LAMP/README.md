@@ -21,8 +21,8 @@ A containerized LAMP (Linux, Apache, MySQL, PHP) application deployed using Dock
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/mirakib/docker-lamp-crud.git
-   cd docker-lamp-crud
+   git clone https://github.com/mirakib/DevOps-Projects.git
+   cd DevOps-Projects/Docker/CRUD/LAMP
    ```
 
 2. Build and start the containers:

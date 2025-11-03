@@ -77,9 +77,13 @@ $emails = $stmt->fetchAll();
 <body>
   <div class="container">
     <div class="card">
+        <p align="center">
+            <a href="https://skillicons.dev">
+                <img src="https://skillicons.dev/icons?i=linux,nginx,mysql,php" />
+            </a>
+        </p>
       <h1>LEMP CRUD BY MOSHREKUL ISLAM</h1>
 
-      <!-- FORM: center -->
       <?php if (!empty($editItem)): ?>
         <form method="post" action="?action=update" class="form">
           <input type="hidden" name="id" value="<?=htmlspecialchars($editItem['id'])?>">
