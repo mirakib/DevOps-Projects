@@ -82,7 +82,7 @@ if ($result) {
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>LAMP CRUD MONITORING</title>
+  <title>LAMP CRUD</title>
   <!-- Tailwind CDN for quick styling -->
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
