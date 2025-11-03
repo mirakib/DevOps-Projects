@@ -1,0 +1,54 @@
+services:
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: php-fpm
+    image: lemp-crud-php:latest
+    container_name: lemp_php
+    restart: unless-stopped
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+    volumes:
+      - ./src:/var/www/html:ro
+    networks:
+      - lempnet
+
+  nginx:
+    image: nginx:stable-alpine
+    container_name: lemp_nginx
+    restart: unless-stopped
+    ports:
+      - "${HOST_PORT}:80"
+    depends_on:
+      - php
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./src/public:/var/www/html/public:ro
+    networks:
+      - lempnet
+
+  db:
+    image: mariadb:latest
+    container_name: lemp_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - lempnet
+
+volumes:
+  db_data:
+
+networks:
+  lempnet:
+    driver: bridge
