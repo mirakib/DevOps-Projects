@@ -1,0 +1,50 @@
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: ./frontend/Dockerfile
+      target: nginx
+    image: mern-crud-frontend:latest
+    container_name: mern_frontend
+    ports:
+      - "${HOST_PORT}:80"
+    depends_on:
+      - api
+    networks:
+      - mern-net
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: production
+    image: mern-crud-api:latest
+    container_name: mern_api
+    environment:
+      - MONGO_URI=mongodb://root:${MONGO_INITDB_ROOT_PASSWORD}@db:27017/${MONGO_DB}?authSource=admin
+      - PORT=${API_PORT}
+    expose:
+      - "${API_PORT}"
+    networks:
+      - mern-net
+    depends_on:
+      - db
+
+  db:
+    image: mongo:latest
+    container_name: mern_db
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+    volumes:
+      - mern_mongo_data:/data/db
+    networks:
+      - mern-net
+
+volumes:
+  mern_mongo_data:
+
+networks:
+  mern-net:
+    driver: bridge
