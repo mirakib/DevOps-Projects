@@ -40,3 +40,46 @@
 .read-the-docs {
   color: #888;
 }
+
+/* Simple layout for CRUD form */
+.app-root {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+header h1 {
+  margin: 0 0 12px 0;
+}
+main {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+.form-card, .list-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  text-align: left;
+}
+label {
+  display: block;
+  margin-bottom: 8px;
+}
+input {
+  width: 100%;
+  padding: 8px 10px;
+  margin-top: 6px;
+  box-sizing: border-box;
+}
+.form-actions { margin-top: 12px; display:flex; gap:8px }
+.btn { padding: 8px 12px; border-radius:6px; border: 1px solid #ccc; background: #f6f6f6; cursor:pointer }
+.btn.primary { background: #2563eb; color: #fff; border-color: #1d4ed8 }
+.btn.danger { background: #ef4444; color: #fff; border-color: #dc2626 }
+.error { color: #b91c1c; margin-bottom:8px }
+table { width:100%; border-collapse: collapse }
+th, td { padding: 8px 10px; border-bottom:1px solid #eee }
+.actions { display:flex; gap:8px }
+
+footer { margin-top:16px; text-align:center; color:#666 }

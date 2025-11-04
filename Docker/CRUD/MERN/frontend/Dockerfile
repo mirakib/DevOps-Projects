@@ -5,7 +5,7 @@ WORKDIR /app
 # Copy package manifests and install deps (leverages Docker cache)
 COPY frontend/package.json frontend/package-lock.json* ./ 
 # If your Vite project uses pnpm or yarn adapt accordingly.
-RUN npm ci
+RUN npm install --omit=dev
 
 # Copy rest of frontend source
 COPY frontend/ .
