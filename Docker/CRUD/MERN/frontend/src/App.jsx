@@ -89,7 +89,7 @@ function App() {
   return (
     <div className="app-root">
       <header>
-        <h1>MERN CRUD (Name & Email)</h1>
+        <h1>MERN CRUD</h1>
       </header>
 
       <main>
