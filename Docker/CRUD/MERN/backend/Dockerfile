@@ -2,7 +2,13 @@
 FROM node:20-alpine AS deps
 WORKDIR /app
 COPY package.json package-lock.json* ./
-RUN npm ci --only=production
+# Use `npm ci` when a lockfile exists for reproducible installs; fall back to
+# `npm install --omit=dev` when it's absent so the image still builds.
+RUN if [ -f package-lock.json ] || [ -f npm-shrinkwrap.json ]; then \
+			npm ci --omit=dev; \
+		else \
+			npm install --omit=dev; \
+		fi
 
 ### STAGE 2: production
 FROM node:20-alpine AS production
