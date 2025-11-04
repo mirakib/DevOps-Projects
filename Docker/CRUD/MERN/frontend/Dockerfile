@@ -3,9 +3,11 @@ FROM node:20-alpine AS builder
 WORKDIR /app
 
 # Copy package manifests and install deps (use local frontend context)
+# Copy package manifests from frontend context
 COPY package.json package-lock.json* ./
-# If your Vite project uses pnpm or yarn adapt accordingly.
-RUN npm install --omit=dev
+# Install dependencies including devDependencies required for the build (vite, plugins)
+# We install full deps in the builder stage so `npm run build` can run vite.
+RUN npm install
 
 # Copy rest of frontend source
 COPY . .
