@@ -149,7 +149,7 @@ function App() {
       </main>
 
       <footer>
-        <small>Simple CRUD demo</small>
+        <small>Created by Moshrekul Islam</small>
       </footer>
     </div>
   )

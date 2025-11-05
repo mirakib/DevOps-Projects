@@ -51,10 +51,24 @@
 header h1 {
   margin: 0 0 12px 0;
 }
-main {
+.main-row {
   display: grid;
   grid-template-columns: 1fr;
   gap: 20px;
+}
+
+/* On wider screens place form and list side-by-side */
+@media (min-width: 900px) {
+  .main-row {
+    grid-template-columns: 420px 1fr;
+    align-items: start;
+  }
+  /* keep the form visible while scrolling */
+  .form-card {
+    position: sticky;
+    top: 20px;
+    align-self: start;
+  }
 }
 .form-card, .list-card {
   background: #fff;
