@@ -1,9 +1,9 @@
 import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
 
-// Basic Vite config. We avoid requiring @vitejs/plugin-react here so the
-// dev server can start even if the plugin isn't installed. Vite's esbuild
-// will still handle JSX for simple apps. Install the plugin later for
-// React-specific transforms and fast refresh.
+// Use the official React plugin so Vite produces a proper React build
+// (transforms JSX, enables Fast Refresh in dev). The dependency is
+// declared in package.json; the builder installs it during image build.
 export default defineConfig({
-  // keep defaults; add plugins here if you install @vitejs/plugin-react
+  plugins: [react()],
 })
