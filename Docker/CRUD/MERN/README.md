@@ -1,4 +1,4 @@
-<img src="https://skillicons.dev/icons?i=mongo,express,react,nodejs,vite,npm,docker" />
+<img src="https://skillicons.dev/icons?i=mongo,express,react,nodejs" />
 
 # MERN Stack CRUD Application
 
@@ -21,25 +21,45 @@ This project is a simple CRUD application built using the MERN stack (MongoDB, E
 .
 ├── backend
 │   ├── Dockerfile
-│   ├── docker-compose.yml
 │   ├── package.json
-│   ├── server.js
 │   └── src
-│       ├── config
-│       ├── controllers
-│       ├── models
-│       └── routes
-└── frontend
-    ├── Dockerfile
-    ├── docker-compose.yml
-    ├── package.json
-    ├── src
-    │   ├── App.jsx
-    │   ├── components
-    │   ├── pages
-    │   └── styles
-    └── vite.config.ts  
+│       └── app.js
+├── docker-compose.yml
+├── frontend
+│   ├── Dockerfile
+│   ├── index.html
+│   ├── nginx
+│   │   └── default.conf
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── public
+│   │   └── vite.svg
+│   ├── src
+│   │   ├── App.css
+│   │   ├── App.jsx
+│   │   ├── assets
+│   │   ├── index.css
+│   │   └── main.jsx
+│   ├── tsconfig.app.json
+│   ├── tsconfig.json
+│   ├── tsconfig.node.json
+│   └── vite.config.ts
+├── package-lock.json
+└── README.md
 ```
+## Technologies Used
+<img src="https://skillicons.dev/icons?i=mongo,express,react,nodejs,vite,npm,nginx,docker" />
+
+
+- **Backend**: Node.js, Express.js, MongoDB, Mongoose
+- **Frontend**: React.js, Vite, Axios
+- **Reverse Proxy**: Nginx
+- **Containerization**: Docker, Docker Compose
+- **Others**: npm for package management
+  
+## Output Screenshots
+
+![alt text](image.png)
 
 ## Getting Started
 
