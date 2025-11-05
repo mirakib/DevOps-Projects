@@ -1,3 +1,5 @@
+<img src="https://skillicons.dev/icons?i=mongo,express,react,nodejs,vite,npm,docker" />
+
 # MERN Stack CRUD Application
 
 This project is a simple CRUD application built using the MERN stack (MongoDB, Express, React, Node.js) and containerized with Docker. It demonstrates how to set up a full-stack application with a backend API and a frontend interface.
@@ -43,19 +45,20 @@ This project is a simple CRUD application built using the MERN stack (MongoDB, E
 
 1. Clone the repository:
 
-   ```bash
-   git clone <repository-url>       
-    cd mern-crud-docker
-    ```
+```bash
+git clone <repository-url>       
+cd mern-crud-docker
+```
 2. Build and run the application using Docker Compose:
-3.  ```bash
-    docker compose up --build -d
-    ```
+```bash
+docker compose up --build -d
+```
 4. Access the application:
    - Frontend: `http://localhost:3000`
    - Backend API: `http://localhost:5000/api/items`
+
 5. Stop the application:
-   ```bash
-    docker compose down
-    ```
- 
+
+```bash
+docker compose down
+```

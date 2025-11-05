@@ -89,6 +89,11 @@ function App() {
   return (
     <div className="app-root">
       <header>
+        <p align="center">
+          <a href="https://skillicons.dev">
+            <img src="https://skillicons.dev/icons?i=mongo,express,react,nodejs" />
+          </a>
+        </p>
         <h1>MERN CRUD</h1>
       </header>
 
