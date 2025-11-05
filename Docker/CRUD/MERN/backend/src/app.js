@@ -8,7 +8,7 @@ const app = express();
 
 // Environment
 const PORT = process.env.PORT || 5000;
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://root:adminpassword@db:27017/appdb?authSource=admin';
+const MONGO_URI = process.env.MONGO_URI || 'mongodb://root:rootpassword@db:27017/appdb?authSource=admin';
 
 // Middleware
 app.use(cors());
