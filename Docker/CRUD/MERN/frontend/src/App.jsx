@@ -92,7 +92,7 @@ function App() {
         <h1>MERN CRUD</h1>
       </header>
 
-      <main>
+      <main className="main-row">
         <section className="form-card">
           <h2>{editingId ? 'Edit user' : 'Add user'}</h2>
           {error && <div className="error">{error}</div>}
