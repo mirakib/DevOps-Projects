@@ -2,8 +2,8 @@
 
 1. LAMP → Linux, Apache, MySQL, PHP
 2. LEMP → Linux, Nginx, MySQL, PHP
-3. MEAN → MongoDB, Express, Angular, Node.js
-4. MERN → MongoDB, Express, React, Node.js
+3. MEAN → MongoDB, Express.js, Angular, Node.js
+4. MERN → MongoDB, Express.js, React.js, Node.js
 5. MEVN	- MongoDB, Express.js, Vue.js, Node.js
 
 #### Each stack is fully containerized using Docker and Docker Compose, allowing developers to:
