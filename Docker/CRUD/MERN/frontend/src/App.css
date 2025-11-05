@@ -71,6 +71,7 @@ header h1 {
   }
 }
 .form-card, .list-card {
+  border: 1px solid gray;
   background: #fff;
   border-radius: 8px;
   padding: 16px;
