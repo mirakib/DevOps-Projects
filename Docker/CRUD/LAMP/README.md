@@ -1,7 +1,7 @@
 <div style="display: flex; align-items: center; gap: 10px;">
   <img src="https://skillicons.dev/icons?i=linux" style="height: 40px;"/>
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/apache/apache-original.svg" style="height: 40px;"/>
-  <img src="https://skillicons.dev/icons?i=mysql,php,prometheus,grafana,docker" style="height: 40px;"/>  
+  <img src="https://skillicons.dev/icons?i=mysql,php,docker" style="height: 40px;"/>  
 </div>
 
 ## LAMP STACK CRUD Application using Docker
