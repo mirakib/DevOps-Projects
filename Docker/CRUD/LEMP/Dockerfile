@@ -1,4 +1,4 @@
-#STAGE 1: builder 
+# STAGE 1: builder 
 FROM php:8.4-cli-alpine AS builder
 
 # install curl (for composer installer) and git if needed (build-time only)
@@ -6,20 +6,18 @@ RUN apk add --no-cache curl git
 
 WORKDIR /app
 
-# copy composer manifest (empty or with deps) - keeps pattern complete
+# copy composer manifest (empty or with deps)
 COPY src/composer.json /app/composer.json
 
 # install composer (local) and run composer install (no dev)
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
  && composer install --no-dev --no-interaction --optimize-autoloader || true
 
-# copy app code (so we can copy built vendor if present)
 COPY src/ /app
 
-### STAGE 2: php-fpm final
+# STAGE 2: php-fpm final
 FROM php:8.4-fpm-alpine AS php-fpm
 
-# set working dir
 WORKDIR /var/www/html
 
 # install runtime packages and php extensions (pdo_mysql)
