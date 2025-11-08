@@ -66,8 +66,8 @@ This project is a simple CRUD application built using the MERN stack (MongoDB, E
 1. Clone the repository:
 
 ```bash
-git clone <repository-url>       
-cd mern-crud-docker
+git clone https://github.com/mirakib/DevOps-Projects 
+cd Docker/CRUD/MERN
 ```
 2. Build and run the application using Docker Compose:
 ```bash
