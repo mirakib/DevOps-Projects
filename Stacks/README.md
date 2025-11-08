@@ -20,17 +20,29 @@ A stack is a set (or “stack”) of technologies that work together to build an
 
 ## Dockerized versions
 
-1. LAMP CRUD
+1. **LAMP CRUD**
    
    https://github.com/mirakib/DevOps-Projects/tree/main/Docker/CRUD/LAMP
    
-3. LEMP CRUD
+3. **LEMP CRUD**
    
    https://github.com/mirakib/DevOps-Projects/tree/main/Docker/CRUD/LEMP
+
+3. **MERN CRUD**
+
+   https://github.com/mirakib/DevOps-Projects/tree/main/Docker/CRUD/MERN
+   
+5. **MEAN CRUD**
+
+   https://github.com/mirakib/DevOps-Projects/tree/main/Docker/CRUD/MEAN
+   
+7. **MEVN CRUD**
+
+   https://github.com/mirakib/DevOps-Projects/tree/main/Docker/CRUD/MEVN
 
 
 ## Other Project List:
 
-1. Dockerized LAMP Stack with Prometheus & Grafana Monitoring.
+1. **Dockerized LAMP Stack with Prometheus & Grafana Monitoring**
 
    https://github.com/mirakib/dockerize-lamp-monitoring-stack
