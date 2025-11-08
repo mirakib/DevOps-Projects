@@ -1,5 +1,5 @@
 # Docker Projects Repository
-[![Tech Stack](https://skillicons.dev/icons?i=react,angular,vuejs,net,flask,django,php,vite,nodejs,npm,nginx,tailwind,html,python,docker)](https://skillicons.dev)
+[![Tech Stack](https://skillicons.dev/icons?i=react,angular,vuejs,net,flask,django,php,python,vite,nodejs,npm,nginx,mongo,mysql,docker)](https://skillicons.dev)
 
 This repository contains a collection of Docker projects that demonstrate various use cases and best practices for containerizing applications. Each project is designed to showcase different aspects of Docker, from basic containerization to advanced multi-stage builds and optimizations.
 
