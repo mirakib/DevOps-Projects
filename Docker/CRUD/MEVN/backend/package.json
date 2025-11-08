@@ -1,18 +1,13 @@
 {
-  "name": "mern-crud-api",
+  "name": "mevn-api",
   "version": "1.0.0",
-  "description": "Backend API for MERN CRUD example",
-  "main": "src/app.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node src/app.js",
-    "dev": "nodemon src/app.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.18.2",
-    "mongoose": "^7.6.0"
-  },
-  "engines": {
-    "node": ">=18"
+    "express": "^4.19.2",
+    "mongoose": "^8.6.0"
   }
 }
