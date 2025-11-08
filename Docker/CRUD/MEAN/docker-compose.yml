@@ -1,0 +1,53 @@
+services:
+  web:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: nginx
+    image: mean-crud-frontend:latest
+    container_name: mean_frontend
+    ports:
+      - "${HOST_PORT}:80"
+    depends_on:
+      - api
+    networks:
+      - mean-net
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: production
+    image: mean-crud-api:latest
+    container_name: mean_api
+    environment:
+      - MONGO_URI=mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@db:27017/${MONGO_DB}?authSource=admin
+      - PORT=${API_PORT}
+    expose:
+      - "${API_PORT}"
+    ports:
+      - "${API_PORT}:${API_PORT}"
+    depends_on:
+      - db
+    networks:
+      - mean-net
+
+  db:
+    image: mongo:latest
+    container_name: mean_db
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_DB}
+    volumes:
+      - mean_mongo_data:/data/db
+    networks:
+      - mean-net
+
+volumes:
+  mean_mongo_data:
+
+networks:
+  mean-net:
+    driver: bridge
