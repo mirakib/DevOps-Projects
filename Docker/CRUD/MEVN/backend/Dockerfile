@@ -18,9 +18,4 @@ COPY . .
 
 EXPOSE 5000
 
-# Use a non-root user in production for security (optional)
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
-
-USER appuser
-
 CMD ["npm", "start"]
