@@ -5,6 +5,7 @@
 3. MEAN → MongoDB, Express.js, Angular, Node.js
 4. MERN → MongoDB, Express.js, React.js, Node.js
 5. MEVN	- MongoDB, Express.js, Vue.js, Node.js
+6. DRNP - Django, React, Nginx, Python
 
 #### Each stack is fully containerized using Docker and Docker Compose, allowing developers to:
 
