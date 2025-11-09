@@ -40,9 +40,17 @@ A stack is a set (or “stack”) of technologies that work together to build an
 
    https://github.com/mirakib/DevOps-Projects/tree/main/Docker/CRUD/MEVN
 
+8. **DRNP CRUD**
+
+   https://github.com/mirakib/DevOps-Projects/tree/main/Docker/CRUD/DRNP
+
 
 ## Other Project List:
 
 1. **Dockerized LAMP Stack with Prometheus & Grafana Monitoring**
 
    https://github.com/mirakib/dockerize-lamp-monitoring-stack
+
+2. **React PHP MySQL Todo App with Traefik as reverse proxy**
+
+   https://github.com/mirakib/react-mysql-to-do-app
