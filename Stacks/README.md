@@ -18,7 +18,7 @@ A stack is a set (or “stack”) of technologies that work together to build an
 5. **MEVN**	- MongoDB, Express.js, Vue.js, Node.js
 
 
-## Dockerized versions
+## Dockerize versions
 
 1. **LAMP CRUD**
    
