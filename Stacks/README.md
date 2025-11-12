@@ -54,3 +54,9 @@ A stack is a set (or “stack”) of technologies that work together to build an
 2. **React PHP MySQL Todo App with Traefik as reverse proxy**
 
    https://github.com/mirakib/react-mysql-to-do-app
+
+3. **DotNet CRUD App with PostgreSQL and Nginx in Docker**
+
+   https://github.com/mirakib/dockerize-dotnet-crud-app-with-postgres
+
+   
