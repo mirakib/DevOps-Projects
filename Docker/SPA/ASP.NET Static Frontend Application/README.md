@@ -41,7 +41,7 @@ Run these steps from the root of your project directory (`dotnet-web-app/`):
    docker build -t dotnet-web-app:v1 .
    ```
 
-   > **Output Analysis**: The build log will show the SDK image being downloaded first (Stage 1), followed by the ASP.NET Runtime image (Stage 2), demonstrating the size savings achieved by the separation.
+**Output Analysis**: The build log will show the SDK image being downloaded first (Stage 1), followed by the ASP.NET Runtime image (Stage 2), demonstrating the size savings achieved by the separation.
 
 ---
 
@@ -49,7 +49,6 @@ Run these steps from the root of your project directory (`dotnet-web-app/`):
 
 The final stage exposes port 8080 internally, so we map it to the host machine.
 
-**Run Command**: Launch the container in detached mode (`-d`) and map the ports.
 
 ```bash
 docker run -d -p 8080:8080 --name dotnet-app-live dotnet-web-app:v1
@@ -94,10 +93,3 @@ docker run -d -p 8080:8080 --name dotnet-app-live dotnet-web-app:v1
    ```
 
 ---
-
-## 🔍 Multi-Stage Build Benefits
-
-- **Smaller Image Size**: Final image only contains runtime dependencies
-- **Security**: Eliminates development tools and SDK from production image
-- **Performance**: Faster container startup and deployment
-- **Best Practice**: Industry standard for compiled language containerization

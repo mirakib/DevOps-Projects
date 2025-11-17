@@ -1,4 +1,4 @@
-##################### Builder
+# Builder Stage
 
 FROM rust:1.68.2-slim as builder
 
@@ -24,7 +24,7 @@ COPY . ./
 # This is the application build.
 RUN cargo build --target x86_64-unknown-linux-musl --release
 
-##################### Runtime
+# Runtime Stage
 
 FROM alpine:3.17 as runtime
 
