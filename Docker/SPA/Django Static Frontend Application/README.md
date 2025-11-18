@@ -95,7 +95,9 @@ docker run -d -p 8080:8000 --name django-app django-app-image:v1
 
 Open your web browser and navigate to [http://localhost:8000](http://localhost:8000) (or the port you chose) to see the "Hello, DockerUser!" message served by the Django app running inside the Docker container.
 
----
+## Output Screenshot
+
+![django-screenshot](django-SPA-screenshot.png)
 
 ## 🧹 Cleanup
 

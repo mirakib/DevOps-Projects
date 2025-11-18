@@ -72,6 +72,10 @@ docker run -d -p 8080:8080 --name dotnet-app-live dotnet-web-app:v1
 
 ---
 
+3. **Output Screenshot**
+
+![dotnet-screenshot](dotnet-SPA-screenshot.png)
+
 ## 🧹 Cleanup
 
 1. **Stop the Container**:

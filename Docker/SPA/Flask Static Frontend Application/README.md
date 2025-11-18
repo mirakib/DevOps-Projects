@@ -136,6 +136,10 @@ Open your web browser and navigate to [http://localhost:8080](http://localhost:8
 
 ---
 
+## Output Screenshot
+
+![flask-screenshot](flask-SPA-screenshot.png)
+
 ## 🧹 Cleanup
 
 Stop and remove the container when you are done:
