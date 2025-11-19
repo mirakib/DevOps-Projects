@@ -59,4 +59,6 @@ A stack is a set (or “stack”) of technologies that work together to build an
 
    https://github.com/mirakib/dockerize-dotnet-crud-app-with-postgres
 
-   
+4. **DotNet CRUD App with PostgreSQL and Traefik in Docker**
+
+   https://github.com/mirakib/dockerize-dotnet-app-with-postgres-and-traefik
