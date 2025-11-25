@@ -31,12 +31,12 @@ We will deploy a sample multi-tier application:
 `kubectl get pods`
 - Check services: 
 `kubectl get svc`
-1. Access the Application: 
+2. Access the Application: 
 - Retrieve the NodePort of the web-service: 
 `kubectl get svc web-service`
 - Open your browser and navigate to http://<node-ip>:<node-port> 
 to see the application. 
 Step 6: Enhance and Test 
-1. Scaling: 
+3. Scaling: 
 - Scale the web application: 
 `kubectl scale deployment web-deployment --replicas=4`
