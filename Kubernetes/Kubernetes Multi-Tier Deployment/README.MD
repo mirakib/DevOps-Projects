@@ -2,6 +2,7 @@
 Kubernetes (K8s) is a powerful platform for automating the deployment, scaling, and management of containerized applications. In this project, you will deploy a multi-tier application (e.g., a web application with a backend database) on Kubernetes using deployments, services, and persistent volumes. 
 
 ## Step-by-Step Implementation 
+
 ### Step 1: Prerequisites 
 Ensure the following tools are installed and configured: 
 1. **Kubernetes Cluster**: Use a local cluster like Minikube or a cloud-managed 
@@ -15,8 +16,8 @@ We will deploy a sample multi-tier application:
 - **Frontend**: A Node.js or Python Flask web application. 
 - **Backend Database**: MySQL.
 
-### Step 5: Deploy the Application 
-1. Apply the Kubernetes Manifests: 
+### Step 3: Deploy the Application 
+1. **Apply the Kubernetes Manifests:** 
 
 `kubectl apply -f mysql-deployment.yaml`
 
@@ -26,17 +27,22 @@ We will deploy a sample multi-tier application:
 
 `kubectl apply -f web-service.yaml` 
 
-1. Verify the Deployments: 
+2. **Verify the Deployments:** 
 - Check pods: 
 `kubectl get pods`
 - Check services: 
 `kubectl get svc`
-2. Access the Application: 
+
+3. **Access the Application:** 
 - Retrieve the NodePort of the web-service: 
 `kubectl get svc web-service`
-- Open your browser and navigate to http://<node-ip>:<node-port> 
-to see the application. 
-Step 6: Enhance and Test 
-3. Scaling: 
+- Open your browser and navigate to http://<node-ip>:<node-port> to see the application. 
+
+### Step 4: Enhance and Test 
+1. **Scaling:** 
 - Scale the web application: 
 `kubectl scale deployment web-deployment --replicas=4`
+
+### Step 5: Cleanup 
+1. **Delete the Resources:** 
+kubectl delete -f . 
