@@ -45,4 +45,5 @@ We will deploy a sample multi-tier application:
 
 ### Step 5: Cleanup 
 1. **Delete the Resources:** 
-kubectl delete -f . 
+
+`kubectl delete -f` 
