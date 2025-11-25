@@ -19,13 +19,13 @@ We will deploy a sample multi-tier application:
 ### Step 3: Deploy the Application 
 1. **Apply the Kubernetes Manifests:** 
 
-`kubectl apply -f mysql-deployment.yaml`
+   `kubectl apply -f mysql-deployment.yaml`
 
-`kubectl apply -f mysql-service.yaml`
+   `kubectl apply -f mysql-service.yaml`
 
-`kubectl apply -f web-deployment.yaml` 
+   `kubectl apply -f web-deployment.yaml` 
 
-`kubectl apply -f web-service.yaml` 
+   `kubectl apply -f web-service.yaml` 
 
 2. **Verify the Deployments:** 
 - Check pods: 
@@ -46,4 +46,4 @@ We will deploy a sample multi-tier application:
 ### Step 5: Cleanup 
 1. **Delete the Resources:** 
 
-`kubectl delete -f` 
+   `kubectl delete -f` 
