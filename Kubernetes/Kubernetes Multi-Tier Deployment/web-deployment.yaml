@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+	name: web-deployment
+spec:
+	replicas: 2
+	selector:
+		matchLabels:
+			app: web
+	template:
+		metadata:
+			labels:
+				app: web
+		spec:
+			containers:
+				- name: web
+					image: mirakib/k8s-demo:latest
+					ports:
+						- containerPort: 3000
+					env:
+						- name: DB_HOST
+							value: "mysql-service"
+						- name: DB_USER
+							value: "app_user"
+						- name: DB_PASSWORD
+							value: "password"
+						- name: DB_NAME
+							value: "app_db"
