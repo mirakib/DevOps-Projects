@@ -17,10 +17,15 @@ We will deploy a sample multi-tier application:
 
 ### Step 5: Deploy the Application 
 1. Apply the Kubernetes Manifests: 
-`kubectl apply -f mysql-deployment.yaml` 
-`kubectl apply -f mysql-service.yaml` 
+
+`kubectl apply -f mysql-deployment.yaml`
+
+`kubectl apply -f mysql-service.yaml`
+
 `kubectl apply -f web-deployment.yaml` 
+
 `kubectl apply -f web-service.yaml` 
+
 1. Verify the Deployments: 
 - Check pods: 
 `kubectl get pods`
