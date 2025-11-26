@@ -59,12 +59,14 @@ A stack is a set (or “stack”) of technologies that work together to build an
 
    https://github.com/mirakib/dockerize-dotnet-crud-app-with-postgres
 
-4. **DotNet CRUD App with PostgreSQL and Nginx in Docker with Observability**
+5. **DotNet CRUD App with PostgreSQL and Traefik in Docker**
+
+   https://github.com/mirakib/dockerize-dotnet-app-with-postgres-and-traefik
+
+6. **DotNet CRUD App with PostgreSQL and Nginx in Docker with Observability**
 
    https://github.com/mirakib/FullStack-.NET-React-PostgreSQL-Observability-Template
 
-6. **DotNet CRUD App with PostgreSQL and Traefik in Docker**
 
-   https://github.com/mirakib/dockerize-dotnet-app-with-postgres-and-traefik
    
 
