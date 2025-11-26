@@ -6,7 +6,6 @@
 
 A containerized LEMP (Linux, Nginx, MySQL, PHP) application deployed using Docker Compose.
 
-
 ## Features
 
 - **LEMP Stack** (Nginx, MySQL, PHP) for a CRUD web app  
@@ -38,3 +37,5 @@ A containerized LEMP (Linux, Nginx, MySQL, PHP) application deployed using Docke
 ## Output
 
 ![alt text](image.png)
+
+**Note: An entension of this project with monitoring and logging can be found here: https://github.com/mirakib/lemp-stack-monitoring-and-logging-experiment**
