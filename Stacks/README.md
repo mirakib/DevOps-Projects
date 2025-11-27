@@ -51,19 +51,23 @@ A stack is a set (or “stack”) of technologies that work together to build an
 
    https://github.com/mirakib/dockerize-lamp-monitoring-stack
 
-2. **React PHP MySQL Todo App with Traefik as reverse proxy**
+2. **LEMP Stack Monitoring and Logging in P-G-L Stack**
+
+   https://github.com/mirakib/lemp-stack-monitoring-and-logging-experiment/tree/refactor/monitoring-logging
+
+4. **React PHP MySQL Todo App with Traefik as reverse proxy**
 
    https://github.com/mirakib/react-mysql-to-do-app
 
-3. **DotNet CRUD App with PostgreSQL and Nginx in Docker**
+5. **DotNet CRUD App with PostgreSQL and Nginx in Docker**
 
    https://github.com/mirakib/dockerize-dotnet-crud-app-with-postgres
 
-5. **DotNet CRUD App with PostgreSQL and Traefik in Docker**
+6. **DotNet CRUD App with PostgreSQL and Traefik in Docker**
 
    https://github.com/mirakib/dockerize-dotnet-app-with-postgres-and-traefik
 
-6. **DotNet CRUD App with PostgreSQL and Nginx in Docker with Observability**
+7. **DotNet CRUD App with PostgreSQL and Nginx in Docker with Observability**
 
    https://github.com/mirakib/FullStack-.NET-React-PostgreSQL-Observability-Template
 
