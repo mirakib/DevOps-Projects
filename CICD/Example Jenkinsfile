@@ -1,0 +1,397 @@
+@Library('jenkins-shared-libraries@main') _
+
+pipeline {
+    agent {
+        kubernetes {
+            yaml podTemplate()
+            defaultContainer 'build'
+        }
+    }
+    
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '20', artifactNumToKeepStr: '5'))
+        disableConcurrentBuilds abortPrevious: true
+        timeout(time: 45, unit: 'MINUTES')
+        timestamps()
+        ansiColor('xterm')
+        skipDefaultCheckout()
+    }
+    
+    parameters {
+        choice(name: 'ENVIRONMENT', choices: ['dev', 'staging', 'prod'], description: 'Target deployment environment')
+        booleanParam(name: 'RUN_E2E_TESTS', defaultValue: true, description: 'Run end-to-end tests')
+        booleanParam(name: 'RUN_SECURITY_SCAN', defaultValue: true, description: 'Run security vulnerability scan')
+        booleanParam(name: 'DEPLOY', defaultValue: false, description: 'Deploy to target environment')
+        string(name: 'VERSION_TAG', defaultValue: '', description: 'Override version tag (leave empty for auto-generated)')
+    }
+    
+    environment {
+        // Registry Configuration
+        DOCKER_REGISTRY = credentials('docker-registry-url')
+        REGISTRY_CREDS = credentials('docker-registry-credentials')
+        
+        // Application Configuration
+        APP_NAME = 'fullstack-app'
+        VERSION = "${params.VERSION_TAG ?: "${env.BUILD_NUMBER}-${env.GIT_COMMIT.take(8)}"}"
+        IMAGE_TAG = "${DOCKER_REGISTRY}/${APP_NAME}:${VERSION}"
+        
+        // Database Configuration
+        POSTGRES_PASSWORD = credentials('postgres-test-password')
+        
+        // SonarQube Configuration
+        SONAR_TOKEN = credentials('sonar-token')
+        SONAR_HOST_URL = 'https://sonarqube.company.com'
+        
+        // Slack Notifications
+        SLACK_CHANNEL = '#devops-alerts'
+    }
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                script {
+                    checkout scm
+                    env.GIT_COMMIT = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+                    env.GIT_BRANCH = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
+                }
+            }
+        }
+        
+        stage('Validate') {
+            parallel {
+                stage('Lint Backend') {
+                    steps {
+                        container('dotnet') {
+                            sh 'dotnet format --verify-no-changes --verbosity diagnostic'
+                        }
+                    }
+                }
+                stage('Lint Frontend') {
+                    steps {
+                        container('node') {
+                            dir('src/frontend') {
+                                sh 'npm ci && npm run lint'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        stage('Build') {
+            parallel {
+                stage('Build Backend') {
+                    steps {
+                        container('dotnet') {
+                            sh '''
+                                dotnet restore src/backend/Backend.csproj
+                                dotnet build src/backend/Backend.csproj -c Release --no-restore
+                                dotnet publish src/backend/Backend.csproj -c Release --no-restore -o artifacts/backend
+                            '''
+                        }
+                    }
+                    post {
+                        always {
+                            archiveArtifacts artifacts: 'artifacts/backend/**', allowEmptyArchive: true
+                        }
+                    }
+                }
+                stage('Build Frontend') {
+                    steps {
+                        container('node') {
+                            dir('src/frontend') {
+                                sh '''
+                                    npm ci --prefer-offline
+                                    npm run build
+                                '''
+                            }
+                        }
+                    }
+                    post {
+                        always {
+                            archiveArtifacts artifacts: 'src/frontend/dist/**', allowEmptyArchive: true
+                        }
+                    }
+                }
+            }
+        }
+        
+        stage('Test') {
+            parallel {
+                stage('Unit Tests') {
+                    steps {
+                        container('dotnet') {
+                            sh '''
+                                dotnet test --no-build --logger trx --results-directory test-results/backend
+                            '''
+                        }
+                    }
+                    post {
+                        always {
+                            publishTestResults testResultsPattern: 'test-results/backend/**/*.trx'
+                            publishCoverage adapters: [coberturaAdapter('test-results/backend/**/coverage.cobertura.xml')]
+                        }
+                    }
+                }
+                stage('Integration Tests') {
+                    steps {
+                        container('dotnet') {
+                            sh '''
+                                docker-compose -f docker-compose.test.yml up -d postgres-test
+                                dotnet test tests/Integration --no-build --logger trx --results-directory test-results/integration
+                                docker-compose -f docker-compose.test.yml down -v
+                            '''
+                        }
+                    }
+                }
+                stage('Frontend Tests') {
+                    steps {
+                        container('node') {
+                            dir('src/frontend') {
+                                sh 'npm test -- --coverage --watchAll=false'
+                            }
+                        }
+                    }
+                    post {
+                        always {
+                            publishTestResults testResultsPattern: 'src/frontend/test-results/**/*.xml'
+                        }
+                    }
+                }
+            }
+        }
+        
+        stage('Security Scan') {
+            when { expression { return params.RUN_SECURITY_SCAN } }
+            parallel {
+                stage('SonarQube Analysis') {
+                    steps {
+                        container('sonarscanner') {
+                            sh """
+                                dotnet sonarscanner begin \
+                                    /k:"${APP_NAME}" \
+                                    /d:sonar.host.url="${SONAR_HOST_URL}" \
+                                    /d:sonar.login="${SONAR_TOKEN}" \
+                                    /d:sonar.cs.opencover.reportsPaths="test-results/**/coverage.opencover.xml"
+                                dotnet build src/backend/Backend.csproj
+                                dotnet test --no-build --logger trx --results-directory test-results
+                                dotnet sonarscanner end /d:sonar.login="${SONAR_TOKEN}"
+                            """
+                        }
+                    }
+                }
+                stage('Container Scan') {
+                    steps {
+                        container('trivy') {
+                            script {
+                                sh """
+                                    docker build -t ${APP_NAME}:scan .
+                                    trivy image --severity HIGH,CRITICAL --exit-code 1 ${APP_NAME}:scan
+                                """
+                            }
+                        }
+                    }
+                }
+            }
+            post {
+                unstable {
+                    script {
+                        if (env.BRANCH_NAME == 'main') {
+                            error("Security scan failed on main branch - blocking build")
+                        }
+                    }
+                }
+            }
+        }
+        
+        stage('Docker Build & Push') {
+            parallel {
+                stage('Build Backend Image') {
+                    steps {
+                        container('buildkit') {
+                            sh """
+                                docker buildx build \
+                                    --platform linux/amd64,linux/arm64 \
+                                    --tag ${IMAGE_TAG}-backend \
+                                    --tag ${IMAGE_TAG}:latest-backend \
+                                    --cache-from type=gha \
+                                    --cache-to type=gha,mode=max \
+                                    --push \
+                                    --file src/backend/Dockerfile \
+                                    .
+                            """
+                        }
+                    }
+                }
+                stage('Build Frontend Image') {
+                    steps {
+                        container('buildkit') {
+                            sh """
+                                docker buildx build \
+                                    --platform linux/amd64,linux/arm64 \
+                                    --tag ${IMAGE_TAG}-frontend \
+                                    --tag ${IMAGE_TAG}:latest-frontend \
+                                    --cache-from type=gha \
+                                    --cache-to type=gha,mode=max \
+                                    --push \
+                                    --file src/frontend/Dockerfile \
+                                    .
+                            """
+                        }
+                    }
+                }
+            }
+        }
+        
+        stage('Deploy to Dev') {
+            when { expression { return params.ENVIRONMENT == 'dev' && params.DEPLOY } }
+            steps {
+                script {
+                    deployToEnvironment('dev', VERSION)
+                }
+            }
+        }
+        
+        stage('Approval for Staging') {
+            when { expression { return params.ENVIRONMENT == 'staging' } }
+            steps {
+                timeout(time: 2, unit: 'HOURS') {
+                    input message: 'Deploy to Staging?', ok: 'Deploy'
+                }
+                script {
+                    deployToEnvironment('staging', VERSION)
+                }
+            }
+        }
+        
+        stage('Approval for Production') {
+            when { expression { return params.ENVIRONMENT == 'prod' } }
+            steps {
+                timeout(time: 4, unit: 'HOURS') {
+                    input message: 'Deploy to PRODUCTION?', ok: 'Deploy', submitter: 'release-managers'
+                }
+                script {
+                    deployToEnvironment('prod', VERSION)
+                }
+            }
+        }
+    }
+    
+    post {
+        always {
+            script {
+                // Publish test results
+                publishTestResults testResultsPattern: '**/test-results/**/*.xml'
+                
+                // Archive build artifacts
+                archiveArtifacts artifacts: 'artifacts/**', allowEmptyArchive: true
+                
+                // Clean up Docker resources
+                sh 'docker system prune -f'
+            }
+        }
+        
+        success {
+            script {
+                echo "✅ Build ${VERSION} succeeded for ${APP_NAME}"
+                slackSend(
+                    channel: "${SLACK_CHANNEL}",
+                    color: 'good',
+                    message: """
+                        ✅ *Build Success*
+                        *Job:* ${env.JOB_NAME}
+                        *Build:* #${env.BUILD_NUMBER}
+                        *Version:* ${VERSION}
+                        *Branch:* ${env.GIT_BRANCH}
+                        *Deploy:* ${params.ENVIRONMENT}
+                        *Duration:* ${currentBuild.durationString.replace(' and counting', '')}
+                        *URL:* ${env.BUILD_URL}
+                    """
+                )
+            }
+        }
+        
+        failure {
+            script {
+                echo "❌ Build ${VERSION} failed"
+                slackSend(
+                    channel: "${SLACK_CHANNEL}",
+                    color: 'danger',
+                    message: """
+                        ❌ *Build Failed*
+                        *Job:* ${env.JOB_NAME}
+                        *Build:* #${env.BUILD_NUMBER}
+                        *Branch:* ${env.GIT_BRANCH}
+                        *Error:* ${currentBuild.currentResult}
+                        *URL:* ${env.BUILD_URL}
+                    """
+                )
+            }
+        }
+        
+        unstable {
+            script {
+                echo "⚠️ Build ${VERSION} is unstable"
+            }
+        }
+    }
+}
+
+// Shared functions (can be moved to shared library)
+def podTemplate() {
+    return """
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: jenkins-build
+spec:
+  containers:
+  - name: build
+    image: docker:24-dind
+    command: ['cat']
+    tty: true
+    env:
+    - name: DOCKER_BUILDKIT
+      value: "1"
+    volumeMounts:
+    - name: docker-socket
+      mountPath: /var/run/docker.sock
+  - name: dotnet
+    image: mcr.microsoft.com/dotnet/sdk:8.0-alpine
+    command: ['cat']
+    tty: true
+  - name: node
+    image: node:20-alpine
+    command: ['cat']
+    tty: true
+  - name: sonarscanner
+    image: mcr.microsoft.com/dotnet/sdk:8.0-alpine
+    command: ['cat']
+    tty: true
+  - name: trivy
+    image: aquasec/trivy:latest
+    command: ['cat']
+    tty: true
+  volumes:
+  - name: docker-socket
+    hostPath:
+      path: /var/run/docker.sock
+"""
+}
+
+def deployToEnvironment(String envName, String version) {
+    withCredentials([string(credentialsId: "kubeconfig-${envName}", variable: 'KUBECONFIG')]) {
+        sh """
+            kubectl --kubeconfig=\$KUBECONFIG set image deployment/${APP_NAME} \
+                backend=${IMAGE_TAG}-backend \
+                frontend=${IMAGE_TAG}-frontend
+            kubectl --kubeconfig=\$KUBECONFIG rollout status deployment/${APP_NAME} --timeout=300s
+        """
+    }
+    
+    // Health check
+    sh """
+        curl -f http://${APP_NAME}-${envName}.company.com/api/health
+    """
+}
