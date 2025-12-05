@@ -1,1 +1,1 @@
-
+Terraform AWS Infrastructure Blueprints. This repository holds modular and reusable Terraform configurations for provisioning secure and scalable resources on Amazon Web Services (AWS). Projects focus on implementing production-ready infrastructure solutions, including VPC design, EC2 Auto Scaling Groups, Load Balancing (ALB), and Amazon RDS databases.
