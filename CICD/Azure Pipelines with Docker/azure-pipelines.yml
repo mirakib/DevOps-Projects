@@ -1,0 +1,65 @@
+# Trigger pipeline on commits to the main branch
+trigger:
+  - main
+
+# Trigger pipeline on pull requests targeting the main branch
+pr:
+  - main
+
+# Define variables for reuse across the pipeline
+variables:
+  imageName: 'docker.io/$(dockerUsername)/my-image'
+  buildTag: '$(Build.BuildId)'
+  latestTag: 'latest'
+
+stages:
+  - stage: BuildAndPush
+    displayName: Build and Push Docker Image
+    jobs:
+      - job: DockerJob
+        displayName: Build and Push
+        pool:
+          vmImage: ubuntu-latest
+          demands:
+            - docker
+        steps:
+          - checkout: self
+            displayName: Checkout Code
+
+          - task: Docker@2
+            displayName: Docker Login
+            inputs:
+              command: login
+              containerRegistry: 'my-docker-registry'  # Service connection name
+
+          - task: Docker@2
+            displayName: Build Docker Image
+            inputs:
+              command: build
+              repository: $(imageName)
+              tags: |
+                $(buildTag)
+                $(latestTag)
+              dockerfile: './Dockerfile'
+              arguments: |
+                --sbom=true
+                --attest type=provenance
+                --cache-from $(imageName):latest
+            env:
+              DOCKER_BUILDKIT: 1
+
+          - task: Docker@2
+            displayName: Push Docker Image
+            condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
+            inputs:
+              command: push
+              repository: $(imageName)
+              tags: |
+                $(buildTag)
+                $(latestTag)
+
+          # Optional: logout for self-hosted agents
+          - script: docker logout
+            displayName: Docker Logout (Self-hosted only)
+            condition: ne(variables['Agent.OS'], 'Windows_NT')
+
