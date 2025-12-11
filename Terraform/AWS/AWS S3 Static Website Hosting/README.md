@@ -47,7 +47,7 @@ If we want to Create a terraform configuration file we have to use .tf (e.g., ma
 ### Define the AWS provider and required resources like S3 buckets, IAM roles, and policies
 1. Define ```provider.tf``` file using the below code :
 
-```
+```hcl
 provider "aws" {
     region = "ap-south-1"
 }
@@ -62,7 +62,7 @@ terraform init
 Running `terraform init` will install the necessary plugins and modules required for connecting to AWS and managing your infrastructure.<br>
 4. And then define __resource.tf__ file for creating bucket by using the below code :
 
-```
+```hcl
 resource "aws_s3_bucket" "bucket1" {
     bucket = "web-bucket-mathesh"
   
@@ -70,11 +70,11 @@ resource "aws_s3_bucket" "bucket1" {
 ```
 5. Then below command for creating the bucket :
 
-```
+```bash
 terraform apply -auto-approve
 ```
 6. And then add the below codes in __resource.tf__ file :
-```
+```hcl
 resource "aws_s3_bucket_public_access_block" "bucket1" {
   bucket = aws_s3_bucket.bucket1.id
 
@@ -135,7 +135,7 @@ EOF
 
 7. And then again run the command :
 
-```
+```bash
 terraform applyb -auto-approve
 ```
 8. The code above will apply the necessary configurations for features such as static website hosting, bucket policies, and blocking public access to your bucket.
@@ -145,7 +145,7 @@ terraform applyb -auto-approve
 
 1. We use an output file to obtain your website link in your IDE, eliminating the need to access the link through the AWS Console.
 2. Define __output.tf__ file by using the below terraform code :
-```
+```hcl
 output "websiteendpoint" {
     value = aws_s3_bucket.bucket1.website_endpoint
   
@@ -153,7 +153,7 @@ output "websiteendpoint" {
 ```
 3. And then run the following command :
 
-```
+```bash
 terraform apply -auto-approve
 ```
 4. It will give your website link as output as shown below
