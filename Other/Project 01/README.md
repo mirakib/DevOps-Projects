@@ -18,3 +18,14 @@ response time.
 5. **Alertmanager**: Manages alerts sent by Prometheus based on
 defined rules.
 6. **Gmail Integration**: Sends email notifications for critical alerts
+
+## Setup Instructions
+
+1. **Launch EC2 Instances**:
+  Create two EC2 instances with appropriate security groups allowing necessary ports. Adjust security settings to allow necessary ports:
+  - Prometheus: 9090
+   - Alert manager: 9093
+   - Blackbox Exporter: 9115
+   - Node Exporter: 9100
+   - Email transmissions: 587
+   - Nginx: 80

@@ -1,1 +1,24 @@
+global:
+  group_by: ['alertname']
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 1h
+  receiver: 'email-notifications'
 
+receivers:
+  - name: 'email-notifications'
+    email_configs:
+      - to: moshrekulislam@gmail.com
+        from: test@gmail.com
+        smarthost: smtp.gmail.com:587
+        auth_username: your_email
+        auth_identity: your_email
+        auth_password: "bdmq omqh vvkk zoqx"
+        send_resolved: true
+
+inhibit_rules:
+  - source_match:
+      severity: 'critical'
+    target_match:
+      severity: 'warning'
+    equal: ['alertname', 'dev', 'instance']
