@@ -12,3 +12,55 @@ This project deploys, WordPress site and a MySQL database using Minikube. Both a
 - Apply the kustomization directory by `kubectl apply -k ./`
 - Clean up
 
+## Applying the kustomization
+
+```bash
+kubectl apply -k ./
+```
+
+## Verifying the deployment
+Now you can verify that all objects exist.
+
+1. Verify that the Secret exists by running the following command:
+   
+    ```bash
+    kubectl get secrets
+    ```
+
+2. Verify that a PersistentVolume got dynamically provisioned.
+   
+    ```bash
+    kubectl get pvc
+    ```
+
+3. erify that the Pod is running by running the following command:
+
+    ```bash
+    kubectl get pods
+    ```
+
+4. Verify that the Service is running by running the following command:
+
+    ```bash
+    kubectl get services wordpress
+    ```
+
+5. Run the following command to get the IP Address for the WordPress Service:
+   
+    ```
+    minikube service wordpress --url
+    ```
+
+    The response should be like this:
+
+    `http://1.2.3.4:32406`
+
+6. Open the URL in your web browser to access the WordPress site.
+
+## Cleaning up
+
+Run the following command to delete your Secret, Deployments, Services and PersistentVolumeClaims:
+
+```bash
+kubectl delete -k ./
+```
