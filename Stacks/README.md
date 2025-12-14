@@ -20,56 +20,34 @@ A stack is a set (or “stack”) of technologies that work together to build an
 
 <h1 align="center"> DOCKERIZE VERSIONS </h1>
 
-1. **LAMP CRUD**
+1. [**LAMP CRUD**](https://github.com/mirakib/DevOps-Projects/tree/main/Docker/CRUD/LAMP)
    
-   https://github.com/mirakib/DevOps-Projects/tree/main/Docker/CRUD/LAMP
+3. [**LEMP CRUD**](https://github.com/mirakib/DevOps-Projects/tree/main/Docker/CRUD/LEMP)
    
-3. **LEMP CRUD**
+3. [**MERN CRUD**](https://github.com/mirakib/DevOps-Projects/tree/main/Docker/CRUD/MERN)
+
+5. [**MEAN CRUD**](https://github.com/mirakib/DevOps-Projects/tree/main/Docker/CRUD/MEAN)
    
-   https://github.com/mirakib/DevOps-Projects/tree/main/Docker/CRUD/LEMP
+7. [**MEVN CRUD**](https://github.com/mirakib/DevOps-Projects/tree/main/Docker/CRUD/MEVN)   
 
-3. **MERN CRUD**
-
-   https://github.com/mirakib/DevOps-Projects/tree/main/Docker/CRUD/MERN
-   
-5. **MEAN CRUD**
-
-   https://github.com/mirakib/DevOps-Projects/tree/main/Docker/CRUD/MEAN
-   
-7. **MEVN CRUD**
-
-   https://github.com/mirakib/DevOps-Projects/tree/main/Docker/CRUD/MEVN
-
-8. **DRNP CRUD**
-
-   https://github.com/mirakib/DevOps-Projects/tree/main/Docker/CRUD/DRNP
+8. [**DRNP CRUD**](https://github.com/mirakib/DevOps-Projects/tree/main/Docker/CRUD/DRNP)
 
 
 ## Other Project List:
 
-1. **Dockerized LAMP Stack with Prometheus & Grafana Monitoring**
+1. [**Dockerized LAMP Stack with Prometheus & Grafana Monitoring**](https://github.com/mirakib/dockerize-lamp-monitoring-stack)
 
-   https://github.com/mirakib/dockerize-lamp-monitoring-stack
+2. [**LEMP Stack Monitoring and Logging in P-G-L Stack**](https://github.com/mirakib/lemp-stack-monitoring-and-logging-experiment)
+   
+4. [**React PHP MySQL Todo App with Traefik as reverse proxy**](https://github.com/mirakib/react-mysql-to-do-app)
 
-2. **LEMP Stack Monitoring and Logging in P-G-L Stack**
+5. [**DotNet CRUD App with PostgreSQL and Nginx in Docker**](https://github.com/mirakib/dockerize-dotnet-crud-app-with-postgres)
 
-   https://github.com/mirakib/lemp-stack-monitoring-and-logging-experiment
+6. [**DotNet CRUD App with PostgreSQL and Traefik in Docker**](https://github.com/mirakib/dockerize-dotnet-app-with-postgres-and-traefik)
 
-4. **React PHP MySQL Todo App with Traefik as reverse proxy**
+7. [**DotNet CRUD App with PostgreSQL and Nginx in Docker with Observability**](https://github.com/mirakib/FullStack-.NET-React-PostgreSQL-Observability-Template)
 
-   https://github.com/mirakib/react-mysql-to-do-app
-
-5. **DotNet CRUD App with PostgreSQL and Nginx in Docker**
-
-   https://github.com/mirakib/dockerize-dotnet-crud-app-with-postgres
-
-6. **DotNet CRUD App with PostgreSQL and Traefik in Docker**
-
-   https://github.com/mirakib/dockerize-dotnet-app-with-postgres-and-traefik
-
-7. **DotNet CRUD App with PostgreSQL and Nginx in Docker with Observability**
-
-   https://github.com/mirakib/FullStack-.NET-React-PostgreSQL-Observability-Template
+   
 
 
    
