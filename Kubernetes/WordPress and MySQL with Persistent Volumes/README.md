@@ -57,6 +57,8 @@ Now you can verify that all objects exist.
 
 6. Open the URL in your web browser to access the WordPress site.
 
+<img width="1076" height="333" alt="image" src="https://github.com/user-attachments/assets/45ee6a57-0025-41b7-8dae-b9b2793885dc" />
+
 ## Cleaning up
 
 Run the following command to delete your Secret, Deployments, Services and PersistentVolumeClaims:
