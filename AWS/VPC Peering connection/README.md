@@ -1,6 +1,6 @@
 # Connect VPCs using VPC peering
 
-<img width="499" height="161" alt="image" src="https://github.com/user-attachments/assets/9d8911f1-7fb0-436a-a28b-919d8e5e8fa1" />
+<img width="4209" height="1629" alt="vpc-peering drawio" src="https://github.com/user-attachments/assets/5a7246ae-3288-4a43-b080-3bac8c716dba" />
 
 A VPC peering connection is a networking feature that enables secure and direct communication between two virtual private clouds (VPCs) within the AWS infrastructure. This private connection allows resources in the peered VPCs to interact with each other as if they were part of the same network, eliminating the need to traverse the public internet.
 
