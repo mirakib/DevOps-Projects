@@ -1,4 +1,4 @@
-variable "instance_key" {
+variable "key_name" {
   description = "EC2 key pair name"
   type        = string
 }

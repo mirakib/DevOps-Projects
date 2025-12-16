@@ -1,51 +1,42 @@
 resource "aws_security_group" "allow_icmp_ssh_home" {
-  vpc_id = aws_vpc.home.id
-  name   = "home-sg"
+  name        = "allow-icmp-ssh-home"
+  vpc_id      = aws_vpc.home.id
+
+  # keep default egress
+  revoke_rules_on_delete = false
 
   ingress {
-    protocol    = "icmp"
-    from_port   = -1
-    to_port     = -1
-    cidr_blocks = ["10.0.1.0/24"]
-  }
-
-  ingress {
-    protocol    = "tcp"
     from_port   = 22
     to_port     = 22
-    cidr_blocks = ["10.0.1.0/24"]
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
-  egress {
-    protocol    = "-1"
-    from_port   = 0
-    to_port     = 0
+  ingress {
+    from_port   = -1
+    to_port     = -1
+    protocol    = "icmp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
 
 resource "aws_security_group" "allow_icmp_ssh_office" {
-  vpc_id = aws_vpc.office.id
-  name   = "office-sg"
+  name        = "allow-icmp-ssh-office"
+  vpc_id      = aws_vpc.office.id
+
+  revoke_rules_on_delete = false
 
   ingress {
-    protocol    = "icmp"
-    from_port   = -1
-    to_port     = -1
-    cidr_blocks = ["10.0.0.0/24"]
-  }
-
-  ingress {
-    protocol    = "tcp"
     from_port   = 22
     to_port     = 22
-    cidr_blocks = ["10.0.0.0/24"]
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
-  egress {
-    protocol    = "-1"
-    from_port   = 0
-    to_port     = 0
+  ingress {
+    from_port   = -1
+    to_port     = -1
+    protocol    = "icmp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
