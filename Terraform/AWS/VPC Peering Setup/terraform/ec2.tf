@@ -4,6 +4,10 @@ resource "aws_instance" "home" {
   subnet_id     = aws_subnet.home_subnet.id
   key_name = aws_key_pair.instance_key.key_name
   vpc_security_group_ids = [aws_security_group.allow_icmp_ssh_home.id]
+
+  tags = {
+    Name = "home-instance"
+  }
 }
 
 resource "aws_instance" "office" {
@@ -12,4 +16,8 @@ resource "aws_instance" "office" {
   subnet_id     = aws_subnet.office_subnet.id
   key_name = aws_key_pair.instance_key.key_name
   vpc_security_group_ids = [aws_security_group.allow_icmp_ssh_office.id]
+
+  tags = {
+    Name = "office-instance"
+  }
 }
