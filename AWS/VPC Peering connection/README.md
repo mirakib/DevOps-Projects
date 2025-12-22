@@ -65,6 +65,7 @@ A VPC peering connection is a networking feature that enables secure and direct 
 9. The owner of the accepter account must accept the peering connection. For more information, see Accept or reject a VPC peering connection.
 
 10. Update the route tables for both VPCs to enable communication between them. For more information, see Update your route tables for a VPC peering connection.
+    
     a) Change route table for `home-vpc`
 
     <img width="1366" height="453" alt="image" src="https://github.com/user-attachments/assets/e7204b8a-fad2-44ce-8015-3cfe59f8b827" />
