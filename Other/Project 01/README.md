@@ -9,7 +9,7 @@ In this project, we implemented a comprehensive monitoring solution using Promet
 1. **EC2 Instances:**
   - `Instance 1`: Hosts the web application, Node Exporter, and Nginx.
   - `Instance 2`: Hosts Prometheus, Blackbox Exporter, and Alertmanager.
-2. **PPrometheus**: Centralized monitoring tool for collecting and
+2. **Prometheus**: Centralized monitoring tool for collecting and
 querying metrics.
 3. **Node Exporter**: Collects hardware and OS-level metrics from the
 web server.
