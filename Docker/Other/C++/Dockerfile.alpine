@@ -1,0 +1,19 @@
+# Stage 1: Build
+FROM alpine:latest AS build
+
+RUN apk add --no-cache build-base
+
+WORKDIR /app
+
+COPY hello.cpp .
+
+RUN g++ -O2 -o hello hello.cpp
+
+# Stage 2: Runtime
+FROM alpine:latest
+
+WORKDIR /app
+
+COPY --from=build /app/hello .
+
+CMD ["./hello"]
