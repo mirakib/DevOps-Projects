@@ -19,19 +19,20 @@ response time.
 defined rules.
 6. **Gmail Integration**: Sends email notifications for critical alerts
 
-## Setup Instructions
 
 >[!Tip]
 > **Instances can be auto provision using Terraform instead of manually.**
 
+## Manual Setup Instructions
+
 1. **Launch EC2 Instances**:
   Create two EC2 instances with appropriate security groups allowing necessary ports. Adjust security settings to allow necessary ports:
-  - Prometheus: 9090
-   - Alert manager: 9093
-   - Blackbox Exporter: 9115
-   - Node Exporter: 9100
-   - Email transmissions: 587
-   - Nginx: 80
+   - **Prometheus**: `9090`
+   - **Alert manager**: `9093`
+   - **Blackbox Exporter**: `9115`
+   - **Node Exporter**: `9100`
+   - **Email transmissions**: `587`
+   - **Nginx**: `80`
 
 2. **Install and Configure Node Exporter and Deploy Web application on Instance 1**
    - **Install Node Exporter**
@@ -56,7 +57,7 @@ defined rules.
      ```
 
 >[!TIP]
-> For manually setup `prometheus`, `blackbox` and `alertmanager` in the same EC2 server at the same time, use multiple sessions.
+> To manually setup `prometheus`, `blackbox` and `alertmanager` in the same EC2 server at the same time, use multiple sessions.
 
 3. **Install and Configure Prometheus, Blackbox Exporter, and Alertmanager on Instance 2**
 
@@ -71,8 +72,19 @@ defined rules.
        ```bash
         cd prometheus-2.52.0.linux-amd64
         ```
-      
-       ```bash
+
+     - **Update configuration files:**
+       
+        ```sh
+        vi prometheus.yml
+        ```
+        
+        ```sh
+        vi alert_rules.yml
+        ```
+      - **Run prometheus process:**
+        
+        ```bash
         ./prometheus --config.file=prometheus.yml
         ```
 
@@ -101,16 +113,22 @@ defined rules.
        ```bash
         tar xvfz alertmanager-0.27.0.linux-amd64.tar.gz
         ```
-      
        ```bash
         cd alertmanager-0.27.0.linux-amd64
         ```
-      
-       ```bash
+     - **Update configuration files:**
+  
+       ```sh
+       vi alertmanager.yml
+       ```
+       
+      - **Run alertmanager process:**
+        
+        ```bash
         ./alertmanager --config.file=alertmanager.yml
         ```
 
- 4. **Create Gmail Authentication Password**
+ 5. **Create Gmail Authentication Password**
 
     1. Enable Two-Factor Authentication (2FA):
        - Log in to your Google account and navigate to Google Account Security.
@@ -126,6 +144,6 @@ defined rules.
     3. Use the App Password in Your Configuration:
        - Replace `<your-app-password>` in your `alertmanager.yml` configuration with the generated app password.
 
-## Prometheus Dashboard Screenshots
+### Prometheus Dashboard Screenshot:
 
 <img width="1366" height="434" alt="image" src="https://github.com/user-attachments/assets/4eea1cd4-0ef7-41ac-9057-1d09d09e7578" />
