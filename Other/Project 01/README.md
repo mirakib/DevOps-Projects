@@ -21,6 +21,9 @@ defined rules.
 
 ## Setup Instructions
 
+>[!Tip]
+> **Instances can be auto provision using Terraform instead of manually.**
+
 1. **Launch EC2 Instances**:
   Create two EC2 instances with appropriate security groups allowing necessary ports. Adjust security settings to allow necessary ports:
   - Prometheus: 9090
