@@ -104,19 +104,9 @@ resource "aws_security_group" "monitoring_sg" {
   }
 }
 
-data "aws_ami" "amazon_linux" {
-  most_recent = true
-  owners      = ["amazon"]
-
-  filter {
-    name   = "name"
-    values = ["al2023-ami-*-x86_64"]
-  }
-}
-
 resource "aws_instance" "web" {
-  ami                    = data.aws_ami.amazon_linux.id
-  instance_type          = var.instance_type
+  ami           = "ami-0ecb62995f68bb549"
+  instance_type = "t2.micro"
   subnet_id              = aws_subnet.public_subnet.id
   vpc_security_group_ids = [aws_security_group.monitoring_sg.id]
   key_name               = var.key_name
@@ -127,8 +117,8 @@ resource "aws_instance" "web" {
 }
 
 resource "aws_instance" "monitoring" {
-  ami                    = data.aws_ami.amazon_linux.id
-  instance_type          = var.instance_type
+  ami           = "ami-0ecb62995f68bb549"
+  instance_type = "t2.micro"
   subnet_id              = aws_subnet.public_subnet.id
   vpc_security_group_ids = [aws_security_group.monitoring_sg.id]
   key_name               = var.key_name
