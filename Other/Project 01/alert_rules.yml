@@ -72,3 +72,15 @@ groups:
         annotations:
           summary: "File System Almost Full (instance {{ $labels.instance }})"
           description: "File system has < 10% free space\n VALUE = {{ $value }}\n LABELS: {{ $labels }}"
+
+  # Temporary test alert to verify email delivery
+  - name: test-email
+    rules:
+      - alert: TestEmail
+        expr: vector(1) == 1
+        for: 10s
+        labels:
+          severity: critical
+        annotations:
+          summary: "Test Email Alert"
+          description: "This is a test alert to verify email delivery."

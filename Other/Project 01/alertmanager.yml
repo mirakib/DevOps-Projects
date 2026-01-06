@@ -1,19 +1,21 @@
 global:
+  smtp_smarthost: 'smtp.gmail.com:587'
+  smtp_from: 'your_email@gmail.com'
+  smtp_auth_username: 'your_email@gmail.com'
+  smtp_auth_identity: 'your_email@gmail.com'
+  smtp_auth_password: "oiui ytrr hvzr lknn"  # Replace with Gmail App Password
+
+route:
+  receiver: 'email-notifications'
   group_by: ['alertname']
   group_wait: 30s
   group_interval: 5m
   repeat_interval: 1h
-  receiver: 'email-notifications'
 
 receivers:
   - name: 'email-notifications'
     email_configs:
-      - to: moshrekulislam@gmail.com
-        from: test@gmail.com
-        smarthost: smtp.gmail.com:587
-        auth_username: your_email
-        auth_identity: your_email
-        auth_password: "bdmq omqh vvkk zoqx"
+      - to: 'your_email@gmail.com'
         send_resolved: true
 
 inhibit_rules:
