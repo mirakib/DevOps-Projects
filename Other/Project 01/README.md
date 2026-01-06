@@ -55,6 +55,9 @@ defined rules.
      sudo apt install nginx
      ```
 
+>[!TIP]
+> For manually setup `prometheus`, `blackbox` and `alertmanager` in the same EC2 server at the same time, use multiple sessions.
+
 3. **Install and Configure Prometheus, Blackbox Exporter, and Alertmanager on Instance 2**
 
      - **Install Prometheus**
@@ -106,6 +109,7 @@ defined rules.
        ```bash
         ./alertmanager --config.file=alertmanager.yml
         ```
+
  4. **Create Gmail Authentication Password**
 
     1. Enable Two-Factor Authentication (2FA):
@@ -114,10 +118,14 @@ defined rules.
        - Follow the prompts to set up 2FA. You might need to provide your phone number and verify it via a code sent by SMS.
     2. Generate an App Password:
        - Once 2FA is enabled, go back to the Google Account Security page.
-       - Search this on your browser :- https://myaccount.google.com/apppassowords  
+       - Search this on your browser :- [https://myaccount.google.com/apppasswords ](https://myaccount.google.com/apppasswords)
        - You might need to sign in again for security reasons.
        - On the "App passwords" page, click on the "Select app" dropdown and choose "Other (Custom name)".
        - Enter a name for the app password, such as "Prometheus Alertmanager", and click "Generate".
        - Google will provide you with a 16-character app password. Make sure to copy this password.
     3. Use the App Password in Your Configuration:
-       - Replace <your-app-password> in your alertmanager.yml configuration with the generated app password.
+       - Replace `<your-app-password>` in your `alertmanager.yml` configuration with the generated app password.
+
+## Prometheus Dashboard Screenshots
+
+<img width="1366" height="434" alt="image" src="https://github.com/user-attachments/assets/4eea1cd4-0ef7-41ac-9057-1d09d09e7578" />
