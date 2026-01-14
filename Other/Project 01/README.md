@@ -1,4 +1,4 @@
-# Building a Complete DevOps Monitoring Ecosystem
+# Building a Complete Web Application Monitoring Ecosystem
 
 ## Introduction
 
