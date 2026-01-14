@@ -15,6 +15,8 @@ This project implements a lightweight, cost-effective AWS architecture where a s
 
 ---
 
+<img width="4116" height="2946" alt="Untitled Diagram drawio" src="https://github.com/user-attachments/assets/9255b8e5-ddbe-4059-b564-7c5b66cbba1d" />
+
 ## Architecture Overview
 - Provisioned three EC2 instances:
   - One NGINX router
