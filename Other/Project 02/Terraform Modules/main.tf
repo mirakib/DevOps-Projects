@@ -1,26 +1,3 @@
-terraform {
-  required_version = ">= 1.3.0"
-
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
-    }
-  }
-}
-
-provider "aws" {
-  region = "ap-south-1"
-}
-
-variable "my_ip" {
-  type = string
-}
-
-data "aws_vpc" "default" {
-  default = true
-}
-
 data "aws_ami" "ubuntu" {
   most_recent = true
   owners      = ["099720109477"]
@@ -36,9 +13,43 @@ data "aws_ami" "ubuntu" {
   }
 }
 
+resource "aws_vpc" "main" {
+  cidr_block = "10.0.0.0/16"
+  tags       = { Name = "vpc-main" }
+}
+
+resource "aws_internet_gateway" "igw" {
+  vpc_id = aws_vpc.main.id
+  tags   = { Name = "igw-main" }
+}
+
+resource "aws_subnet" "public" {
+  vpc_id                  = aws_vpc.main.id
+  cidr_block              = "10.0.1.0/24"
+  map_public_ip_on_launch = true
+  availability_zone       = "ap-south-1a"
+  tags                    = { Name = "subnet-public" }
+}
+
+resource "aws_route_table" "public" {
+  vpc_id = aws_vpc.main.id
+  tags   = { Name = "rt-public" }
+}
+
+resource "aws_route" "internet_access" {
+  route_table_id         = aws_route_table.public.id
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id             = aws_internet_gateway.igw.id
+}
+
+resource "aws_route_table_association" "public_assoc" {
+  subnet_id      = aws_subnet.public.id
+  route_table_id = aws_route_table.public.id
+}
+
 resource "aws_security_group" "nginx_router_sg" {
   name   = "nginx-router-sg"
-  vpc_id = data.aws_vpc.default.id
+  vpc_id = aws_vpc.main.id
 
   ingress {
     from_port   = 80
@@ -58,7 +69,7 @@ resource "aws_security_group" "nginx_router_sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = [var.my_ip]
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
@@ -68,14 +79,12 @@ resource "aws_security_group" "nginx_router_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = {
-    Name = "nginx-router-sg"
-  }
+  tags = { Name = "nginx-router-sg" }
 }
 
 resource "aws_security_group" "web_server_sg" {
   name   = "web-server-sg"
-  vpc_id = data.aws_vpc.default.id
+  vpc_id = aws_vpc.main.id
 
   ingress {
     from_port       = 80
@@ -88,7 +97,7 @@ resource "aws_security_group" "web_server_sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = [var.my_ip]
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
@@ -98,15 +107,14 @@ resource "aws_security_group" "web_server_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = {
-    Name = "web-server-sg"
-  }
+  tags = { Name = "web-server-sg" }
 }
 
 resource "aws_instance" "nginx_router" {
   ami                    = data.aws_ami.ubuntu.id
   instance_type          = "t2.micro"
   key_name               = "ultimate-key"
+  subnet_id              = aws_subnet.public.id
   vpc_security_group_ids = [aws_security_group.nginx_router_sg.id]
 
   user_data = <<-EOF
@@ -117,15 +125,14 @@ resource "aws_instance" "nginx_router" {
               systemctl start nginx
               EOF
 
-  tags = {
-    Name = "nginx-router"
-  }
+  tags = { Name = "nginx-router" }
 }
 
 resource "aws_instance" "web1" {
   ami                    = data.aws_ami.ubuntu.id
   instance_type          = "t2.micro"
   key_name               = "ultimate-key"
+  subnet_id              = aws_subnet.public.id
   vpc_security_group_ids = [aws_security_group.web_server_sg.id]
 
   user_data = <<-EOF
@@ -136,15 +143,14 @@ resource "aws_instance" "web1" {
               systemctl start nginx
               EOF
 
-  tags = {
-    Name = "web-1"
-  }
+  tags = { Name = "web-1" }
 }
 
 resource "aws_instance" "web2" {
   ami                    = data.aws_ami.ubuntu.id
   instance_type          = "t2.micro"
   key_name               = "ultimate-key"
+  subnet_id              = aws_subnet.public.id
   vpc_security_group_ids = [aws_security_group.web_server_sg.id]
 
   user_data = <<-EOF
@@ -155,7 +161,5 @@ resource "aws_instance" "web2" {
               systemctl start nginx
               EOF
 
-  tags = {
-    Name = "web-2"
-  }
+  tags = { Name = "web-2" }
 }
