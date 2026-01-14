@@ -1,4 +1,4 @@
-# Multi-Web Reverse Proxy Architecture on AWS Using NGINX
+# NGINX Reverse Proxy for Multiple Domains
 
 This project implements a lightweight, cost-effective AWS architecture where a single NGINX reverse proxy routes incoming traffic to multiple backend web servers based on subdomain requests. The reverse proxy acts as the public entry point, while backend servers remain private and secure inside the VPC. The entire infrastructure is provisioned using Terraform in a single file for simplicity and reproducibility.
 
