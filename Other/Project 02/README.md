@@ -15,7 +15,7 @@ This project implements a lightweight, cost-effective AWS architecture where a s
 
 ---
 
-## What Has Been Done
+## Architecture Overview
 - Provisioned three EC2 instances:
   - One NGINX router
   - Two backend web servers
@@ -31,7 +31,7 @@ This project implements a lightweight, cost-effective AWS architecture where a s
 
 ### 1. Infrastructure Provisioning
 - Configure AWS credentials locally
-- Place the Terraform configuration in a single `main.tf` file
+- Initialize and apply the Terraform configuration:
 
   ```bash
   terraform init
@@ -45,11 +45,12 @@ This project implements a lightweight, cost-effective AWS architecture where a s
 
 ### 2. Configure DNS (A Records)
 
-Create two A records, both pointing to the router public IP:
+**Create two A records, both pointing to the router public IP:**
 
-Subdomain	Type	Value
-web1.example.com	A	ROUTER_PUBLIC_IP
-web2.example.com	A	ROUTER_PUBLIC_IP
+| Subdomain | Type | Value |
+|-----------|------|-------|
+| web1.example.com | A | ROUTER_PUBLIC_IP |
+| web2.example.com | A | ROUTER_PUBLIC_IP |
 
 
 ### 3. Configure NGINX on the Router
@@ -93,6 +94,12 @@ echo "WEB 2 OK" | sudo tee /var/www/html/index.html
 
 ### 5. Enable SSL with Certbot on Router
 
+**Add script permission:**
+
+```sh
+sudo chmod +x ssl_nginx.sh
+```
+
 **Install and issue certificates:**
 
 ```sh
@@ -101,4 +108,16 @@ sudo ./ssl_nginx.sh web1.example.com youremail@example.com
 
 ```sh
 sudo ./ssl_nginx.sh web2.example.com youremail@example.com
+```
+
+### 6. Verify Setup
+
+- Access `https://web1.example.com` and `https://web2.example.com` to see respective messages.
+
+### 7. Cleanup
+
+To destroy the infrastructure, run:
+
+```bash
+terraform destroy
 ```
