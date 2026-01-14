@@ -13,15 +13,9 @@ provider "aws" {
   region = "ap-south-1"
 }
 
-# VARIABLES
-
 variable "my_ip" {
-  description = "Your public IP for SSH access (x.x.x.x/32)"
-  type        = string
+  type = string
 }
-
-# DATA SOURCES
-
 
 data "aws_vpc" "default" {
   default = true
@@ -29,7 +23,7 @@ data "aws_vpc" "default" {
 
 data "aws_ami" "ubuntu" {
   most_recent = true
-  owners      = ["099720109477"] # Canonical
+  owners      = ["099720109477"]
 
   filter {
     name   = "name"
@@ -42,12 +36,9 @@ data "aws_ami" "ubuntu" {
   }
 }
 
-# SECURITY GROUPS
-
 resource "aws_security_group" "nginx_router_sg" {
-  name        = "nginx-router-sg"
-  description = "Allow HTTP, HTTPS, SSH"
-  vpc_id      = data.aws_vpc.default.id
+  name   = "nginx-router-sg"
+  vpc_id = data.aws_vpc.default.id
 
   ingress {
     from_port   = 80
@@ -83,9 +74,8 @@ resource "aws_security_group" "nginx_router_sg" {
 }
 
 resource "aws_security_group" "web_server_sg" {
-  name        = "web-server-sg"
-  description = "Allow HTTP only from nginx router"
-  vpc_id      = data.aws_vpc.default.id
+  name   = "web-server-sg"
+  vpc_id = data.aws_vpc.default.id
 
   ingress {
     from_port       = 80
@@ -113,13 +103,19 @@ resource "aws_security_group" "web_server_sg" {
   }
 }
 
-# EC2 INSTANCES
-
 resource "aws_instance" "nginx_router" {
   ami                    = data.aws_ami.ubuntu.id
   instance_type          = "t2.micro"
   key_name               = "ultimate-key"
   vpc_security_group_ids = [aws_security_group.nginx_router_sg.id]
+
+  user_data = <<-EOF
+              #!/bin/bash
+              apt-get update -y
+              apt-get install -y nginx
+              systemctl enable nginx
+              systemctl start nginx
+              EOF
 
   tags = {
     Name = "nginx-router"
@@ -132,6 +128,14 @@ resource "aws_instance" "web1" {
   key_name               = "ultimate-key"
   vpc_security_group_ids = [aws_security_group.web_server_sg.id]
 
+  user_data = <<-EOF
+              #!/bin/bash
+              apt-get update -y
+              apt-get install -y nginx
+              systemctl enable nginx
+              systemctl start nginx
+              EOF
+
   tags = {
     Name = "web-1"
   }
@@ -143,24 +147,15 @@ resource "aws_instance" "web2" {
   key_name               = "ultimate-key"
   vpc_security_group_ids = [aws_security_group.web_server_sg.id]
 
+  user_data = <<-EOF
+              #!/bin/bash
+              apt-get update -y
+              apt-get install -y nginx
+              systemctl enable nginx
+              systemctl start nginx
+              EOF
+
   tags = {
     Name = "web-2"
   }
-}
-
-# OUTPUTS
-
-output "nginx_router_public_ip" {
-  description = "Public IP of the NGINX router"
-  value       = aws_instance.nginx_router.public_ip
-}
-
-output "web1_private_ip" {
-  description = "Private IP of Web Server 1"
-  value       = aws_instance.web1.private_ip
-}
-
-output "web2_private_ip" {
-  description = "Private IP of Web Server 2"
-  value       = aws_instance.web2.private_ip
 }
