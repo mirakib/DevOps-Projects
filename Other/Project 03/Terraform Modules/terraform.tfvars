@@ -1,0 +1,5 @@
+aws_region   = "us-east-1"
+vpc_cidr    = "10.0.0.0/16"
+key_name    = "mcsa"
+instance_type = "t3.micro"
+ami_id      = "al2023-ami-2023.9.20251208.0-kernel-6.1-x86_64"
