@@ -7,10 +7,10 @@ resource "aws_launch_template" "project_lt" {
 
   user_data = base64encode(<<EOF
 #!/bin/bash
-yum install -y httpd
-systemctl start httpd
-systemctl enable httpd
-echo "Hello from ASG behind ALB" > /var/www/html/index.html
+apt install -y nginx
+systemctl start nginx
+systemctl enable nginx
+echo "Hello from Nginx web server." > /var/www/html/index.html
 EOF
   )
 }
