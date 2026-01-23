@@ -119,9 +119,11 @@
 
    This should succeed because the public EC2 instance has access to the S3 bucket.
 
-4. SSH into the Private Subnet EC2 Instance.
-5. Set up AWS Access Key and Secret Key for CLI access
-6. Try the same command to list the S3 bucket:
+   <img width="1362" height="68" alt="image" src="https://github.com/user-attachments/assets/5cb40466-6ad7-45df-8624-86cfd3acff4c" />
+
+5. SSH into the Private Subnet EC2 Instance.
+6. Set up AWS Access Key and Secret Key for CLI access
+7. Try the same command to list the S3 bucket:
  
    `aws s3 ls endpoint-analytics-staging-data`
 
@@ -148,3 +150,6 @@
    `aws s3 ls endpoint-analytics-staging-data`
 
    This should succeed because the Private EC2 instance's route table has endpoints configured, allowing access to the S3 bucket.
+
+   <img width="1365" height="75" alt="image" src="https://github.com/user-attachments/assets/7e81da21-84b7-484f-964a-59ffa8a0d6b8" />
+
