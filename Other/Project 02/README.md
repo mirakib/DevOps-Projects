@@ -35,6 +35,9 @@ This project implements a lightweight, cost-effective AWS architecture where a s
 - Configure AWS credentials locally
 - Initialize and apply the Terraform configuration:
 
+>[!Note]
+> Create a key pair `ultimate-key` manually first on AWS account or modify terraform modules as needed.
+
   ```bash
   terraform init
   terraform apply
@@ -65,6 +68,9 @@ ssh -i path/to/your-key.pem ec2-user@ROUTER_PUBLIC_IP
 
 **Create or update config files:**
 
+>[!Important]
+> Update `server_name` with domain and `proxy_pass` with server private ip.
+
 ```sh
 sudo nano /etc/nginx/conf.d/web1.conf
 ```
@@ -72,6 +78,11 @@ sudo nano /etc/nginx/conf.d/web1.conf
 sudo nano /etc/nginx/conf.d/web2.conf
 ```
 
+**Disable the default site on router:**
+
+```sh
+sudo rm /etc/nginx/sites-enabled/default
+```
 
 **Test and reload:**
 
