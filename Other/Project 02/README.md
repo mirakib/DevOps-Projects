@@ -15,6 +15,12 @@ This project implements a lightweight, cost-effective AWS architecture where a s
 
 ---
 
+## Prerequisites
+- An AWS account with appropriate permissions
+- Terraform installed locally
+- A registered domain name (e.g., example.com)
+- Basic knowledge of AWS, Terraform, and NGINX
+
 <img width="4116" height="2946" alt="Untitled Diagram drawio" src="https://github.com/user-attachments/assets/9255b8e5-ddbe-4059-b564-7c5b66cbba1d" />
 
 ## Architecture Overview
@@ -27,7 +33,6 @@ This project implements a lightweight, cost-effective AWS architecture where a s
 - Exposed only the router to the public internet
 - Output public and private IPs for easy integration
 - Prepared the setup for HTTPS termination at the router level
-
 
 ## Setup Steps
 
