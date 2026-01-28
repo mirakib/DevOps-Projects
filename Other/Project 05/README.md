@@ -18,25 +18,33 @@ automates deployments when code is pushed to the main branch.
 ## Provisioning the AWS VM
 
 **Step 1: Initialize Terraform**
+
 Run the following command to initialize the Terraform working directory:
+
 ```sh
 terraform init 
 ```
 
 **Step 2: Plan the Deployment**
+
 Review the changes Terraform will apply:
+
 ```sh
 terraform plan 
 ```
 
 **Step 3: Apply the Configuration**
+
 Apply the configuration to provision the VM:
+
 ```sh
 terraform apply -auto-approve -var-file="Node.js-envronment.tfvars"
 ```
 
-**Step 5: Clean Up Resources**
+**Step 4: Clean Up Resources**
+
 We create pipeline as well to destroy the Infrastructure, run the below command :
+
 ```sh
 terraform destroy -auto-approve -var-file="Node.js-envronment.tfvars"
 ```
