@@ -1,0 +1,42 @@
+name: GitOps Pipeline Deployment 
+
+on:
+  workflow_dispatch:
+    inputs:
+      apply_confirmation:
+        description: 'Confirm Apply (yes/no)'
+        required: true
+        default: 'no'
+        
+jobs: 
+  terraform: 
+    runs-on: ubuntu-latest 
+    
+    steps: 
+      - name: Checkout repository 
+        uses: actions/checkout@v2 
+      
+      - name: Set up Terraform 
+        uses: hashicorp/setup-terraform@v1 
+        with: 
+          terraform_version: 1.4.0 
+      
+      - name: AWS Credentials 
+        uses: aws-actions/configure-aws-credentials@v1 
+        with: 
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }} 
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }} 
+          aws-region: us-east-1a 
+      
+      - name: Initialize Terraform 
+        run: | 
+          cd terraform 
+          terraform init -reconfigure - name: Create Terraform Workspace 
+        
+        run: | 
+          cd terraform 
+          terraform workspace new Node.js || terraform workspace select Node.js - name: Apply Terraform Configuration 
+        
+        run: | 
+          cd terraform 
+          terraform apply -var-file="Node.js-environment.tfvars" -auto-approve
