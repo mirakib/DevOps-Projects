@@ -106,5 +106,9 @@ touch server.js
 ## Test the React frontend build
 
 ```
+cd frontend
 npm run build
 ```
+
+## Update .env file
+
