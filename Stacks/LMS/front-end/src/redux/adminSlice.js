@@ -1,12 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { API_BASE_URL } from "../config/api";
 
 // ✅ Fetch Admin Stats
 export const fetchAdminStats = createAsyncThunk(
   "admin/fetchStats",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get("https://learning-management-system-o8nu.onrender.com/api/admin/stats", {
+      const response = await axios.get(`${API_BASE_URL}/admin/stats`, {
         withCredentials: true,
       });
       return response.data;
@@ -21,7 +22,7 @@ export const banUser = createAsyncThunk(
   "admin/banUser",
   async (userId, { rejectWithValue }) => {
     try {
-      await axios.put(`https://learning-management-system-o8nu.onrender.com/api/admin/ban/${userId}`, {}, { withCredentials: true });
+      await axios.put(`${API_BASE_URL}/admin/ban/${userId}`, {}, { withCredentials: true });
       return userId; // Return only the ID to update state
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || "Failed to ban user");
@@ -34,7 +35,7 @@ export const unbanUser = createAsyncThunk(
   "admin/unbanUser",
   async (userId, { rejectWithValue }) => {
     try {
-      await axios.put(`https://learning-management-system-o8nu.onrender.com/api/admin/unban/${userId}`, {}, { withCredentials: true }); // ✅ No body needed
+      await axios.put(`${API_BASE_URL}/admin/unban/${userId}`, {}, { withCredentials: true }); // ✅ No body needed
       return userId; // ✅ Return userId to update Redux state
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || "Failed to unban user");

@@ -1,6 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
+const mongoose = require("mongoose");
 const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
 const courseRoutes = require("./routes/courseRoutes");
@@ -21,18 +22,29 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/public", express.static("public"));
 
 
+const allowedOrigins = (process.env.CORS_ORIGINS || "http://localhost:8080,http://localhost:5173")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
 app.use(cors({
-    origin: "https://learning-management-system-dglz.vercel.app", 
-    credentials: true,              
-    methods: ["GET", "POST", "PUT","PATCH", "DELETE"],
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      return callback(new Error("Origin is not allowed by CORS"));
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"]
 }));
-app.options("*", cors()); // Handle preflight requests globally
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://learning-management-system-dglz.vercel.app"); // Allow frontend
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.header("Access-Control-Allow-Headers", "Authorization, Content-Type");
-  next();
+
+app.get("/health", (req, res) => {
+  const isDatabaseReady = mongoose.connection.readyState === 1;
+  res.status(isDatabaseReady ? 200 : 503).json({
+    status: isDatabaseReady ? "ok" : "starting",
+    database: isDatabaseReady ? "connected" : "disconnected"
+  });
 });
 
 connectDB();

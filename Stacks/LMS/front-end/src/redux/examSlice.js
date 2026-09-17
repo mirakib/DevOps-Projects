@@ -1,9 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import Cookies from "js-cookie"; // ✅ Import js-cookie
+import { API_BASE_URL } from "../config/api";
 
 // Define the base API URL
-const API_BASE_URL = "https://learning-management-system-o8nu.onrender.com/api/exams";
+const EXAM_API_URL = `${API_BASE_URL}/exams`;
 
 // ✅ Function to check if the token is valid
 const isTokenValid = (token) => {
@@ -29,7 +30,7 @@ export const fetchExams = createAsyncThunk(
       const token = getToken();
       if (!token) throw new Error("Unauthorized - No token");
 
-      const response = await axios.get(`${API_BASE_URL}/all`, {
+      const response = await axios.get(`${EXAM_API_URL}/all`, {
         headers: { Authorization: `Bearer ${token}` },
         withCredentials: true, // Ensures cookies are sent
       });
@@ -49,7 +50,7 @@ export const createExam = createAsyncThunk(
       const token = getToken();
       if (!token) throw new Error("Unauthorized - No token");
 
-      const response = await axios.post(`${API_BASE_URL}/create`, examData, {
+      const response = await axios.post(`${EXAM_API_URL}/create`, examData, {
         headers: { Authorization: `Bearer ${token}` },
         withCredentials: true,
       });
@@ -70,7 +71,7 @@ export const addQuestions = createAsyncThunk(
       if (!token) throw new Error("Unauthorized - No token");
 
       const response = await axios.post(
-        `${API_BASE_URL}/add-questions`,
+        `${EXAM_API_URL}/add-questions`,
         { examId, questions },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -93,7 +94,7 @@ export const deleteExam = createAsyncThunk(
       const token = getToken();
       if (!token) throw new Error("Unauthorized - No token");
 
-      const response = await axios.delete(`${API_BASE_URL}/${examId}`, {
+      const response = await axios.delete(`${EXAM_API_URL}/${examId}`, {
         headers: { Authorization: `Bearer ${token}` },
         withCredentials: true,
       });
@@ -114,7 +115,7 @@ export const deleteQuestion = createAsyncThunk(
       if (!token) throw new Error("Unauthorized - No token");
 
       const response = await axios.delete(
-        `${API_BASE_URL}/questions/${questionId}`,
+        `${EXAM_API_URL}/questions/${questionId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
@@ -138,7 +139,7 @@ export const fetchExamQuestions = createAsyncThunk(
       const token = getToken();
       if (!token) throw new Error("Unauthorized - No token");
 
-      const response = await axios.get(`${API_BASE_URL}/${examId}/questions`, {
+      const response = await axios.get(`${EXAM_API_URL}/${examId}/questions`, {
         headers: { Authorization: `Bearer ${token}` },
         withCredentials: true,
       });
@@ -159,7 +160,7 @@ export const enrollExam = createAsyncThunk(
       if (!token) throw new Error("Unauthorized - No token");
 
       const response = await axios.post(
-        `${API_BASE_URL}/enroll/${examId}`,
+        `${EXAM_API_URL}/enroll/${examId}`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -182,7 +183,7 @@ export const fetchEnrolledExams = createAsyncThunk(
       const token = getToken();
       if (!token) throw new Error("Unauthorized - No token");
 
-      const response = await axios.get(`${API_BASE_URL}/enrolledExam`, {
+      const response = await axios.get(`${EXAM_API_URL}/enrolledExam`, {
         headers: { Authorization: `Bearer ${token}` },
         withCredentials: true,
       });
@@ -202,7 +203,7 @@ export const submitResult = createAsyncThunk(
       if (!token) throw new Error("Unauthorized - No token");
 
       const response = await axios.post(
-        `${API_BASE_URL}/submit-result`, // ✅ Correct URL
+        `${EXAM_API_URL}/submit-result`, // ✅ Correct URL
         resultData,
         {
           headers: {
@@ -232,7 +233,7 @@ export const fetchResults = createAsyncThunk(
         throw new Error("Unauthorized - Please log in to view results.");
       }
 
-      const response = await axios.get(`${API_BASE_URL}/submitted-results`, {
+      const response = await axios.get(`${EXAM_API_URL}/submitted-results`, {
         headers: { Authorization: `Bearer ${token}` },
         withCredentials: true, // Only needed if backend uses cookies
       });
@@ -256,7 +257,7 @@ export const fetchCreatedExams = createAsyncThunk(
       const token = getToken();
       if (!token) throw new Error("Unauthorized - No token");
 
-      const response = await axios.get(`${API_BASE_URL}/created-exams`, {
+      const response = await axios.get(`${EXAM_API_URL}/created-exams`, {
         headers: { Authorization: `Bearer ${token}` },
         withCredentials: true,
       });
@@ -281,7 +282,7 @@ export const generateCertificate = createAsyncThunk(
       const token = getToken();
       if (!token) throw new Error("Unauthorized - No token found");
 
-      const response = await axios.get(`${API_BASE_URL}/${examId}/certificate`, {
+      const response = await axios.get(`${EXAM_API_URL}/${examId}/certificate`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -311,7 +312,7 @@ export const updateExam = createAsyncThunk(
       if (!token) throw new Error("Unauthorized - No token");
 
       const response = await axios.put(
-        `${API_BASE_URL}/update-exam/${examId}`,
+        `${EXAM_API_URL}/update-exam/${examId}`,
         updatedData,
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -335,7 +336,7 @@ export const updateQuestion = createAsyncThunk(
       if (!token) throw new Error("Unauthorized - No token");
 
       const response = await axios.put(
-        `${API_BASE_URL}/update-question/${questionId}`,
+        `${EXAM_API_URL}/update-question/${questionId}`,
         updatedData,
         {
           headers: { Authorization: `Bearer ${token}` },

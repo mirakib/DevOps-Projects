@@ -1,9 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { API_BASE_URL } from "../config/api";
 
 // Base API URL
-const API_URL = "https://learning-management-system-o8nu.onrender.com/api/users";
+const API_URL = `${API_BASE_URL}/users`;
 
 // ✅ Fetch all users (Admin only)
 export const fetchAllUsers = createAsyncThunk(

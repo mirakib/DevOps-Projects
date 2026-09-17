@@ -1,10 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { API_BASE_URL } from "../config/api";
 
 
 // API Base URL
-const API_URL = "https://learning-management-system-o8nu.onrender.com/api/auth";
+const API_URL = `${API_BASE_URL}/auth`;
 
 // ✅ Register User
 export const registerUser = createAsyncThunk(
@@ -15,8 +16,9 @@ export const registerUser = createAsyncThunk(
       const { token, user } = response.data;
 
       // ✅ Store in cookies
-      Cookies.set("token", token, { expires: 7, secure: true });
-      Cookies.set("user", JSON.stringify(user), { expires: 7, secure: true });
+      const cookieOptions = { expires: 7, secure: window.location.protocol === "https:" };
+      Cookies.set("token", token, cookieOptions);
+      Cookies.set("user", JSON.stringify(user), cookieOptions);
 
       return { token, user };
     } catch (error) {
@@ -34,8 +36,9 @@ export const loginUser = createAsyncThunk(
       const response = await axios.post(`${API_URL}/login`, userData);
       const { token, user } = response.data;
 
-      Cookies.set("token", token, { expires: 7, secure: true });
-      Cookies.set("user", JSON.stringify(user), { expires: 7, secure: true });
+      const cookieOptions = { expires: 7, secure: window.location.protocol === "https:" };
+      Cookies.set("token", token, cookieOptions);
+      Cookies.set("user", JSON.stringify(user), cookieOptions);
 
       return { token, user };
     } catch (error) {

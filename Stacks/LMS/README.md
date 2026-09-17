@@ -62,3 +62,38 @@ npm start
 ## 💬 Contact
 📧 [divyanshipal2808@gmail.com]
 
+## Run with Docker Compose
+
+The Compose deployment runs MongoDB, the Express API, and the Vite production build behind rootless Nginx.
+
+1. Install Docker Desktop and start it.
+2. From this directory, create the local environment file:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+3. Set a local `MONGO_ROOT_PASSWORD` and a long random `JWT_SECRET` in `.env`. Add Cloudinary and SMTP values only when those features are needed.
+4. Build and start the stack:
+
+```powershell
+docker compose up --build -d
+```
+
+5. Open `http://localhost:8080`. Check service status and logs with:
+
+```powershell
+docker compose ps
+docker compose logs -f backend
+```
+
+6. Stop the services with:
+
+```powershell
+docker compose down
+```
+
+To remove the local MongoDB data volume as well, use `docker compose down -v`.
+
+The frontend image is built in a separate Node stage and served by an unprivileged Nginx image. The backend also runs as a non-root UID. Secrets are supplied through `.env` and are excluded from the build context.
+

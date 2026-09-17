@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import axios from 'axios';
+import { API_BASE_URL } from '../config/api';
 
 // Animation variants for Framer Motion
 const containerVariants = {
@@ -30,7 +31,7 @@ const ContactPage = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        'https://learning-management-system-o8nu.onrender.com/api/contact',
+        `${API_BASE_URL}/contact`,
         formData
       );
       console.log(response.data);

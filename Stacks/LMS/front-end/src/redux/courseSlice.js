@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { API_BASE_URL } from "../config/api";
 
-const API_URL = "https://learning-management-system-o8nu.onrender.com/api/courses";
+const API_URL = `${API_BASE_URL}/courses`;
 
 // ✅ Fetch All Approved Courses (Public)
 export const fetchAllCourses = createAsyncThunk(
