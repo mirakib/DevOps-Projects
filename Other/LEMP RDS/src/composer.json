@@ -1,0 +1,5 @@
+{
+  "name": "lemp/crud",
+  "description": "Simple LEMP CRUD app",
+  "require": {}
+}

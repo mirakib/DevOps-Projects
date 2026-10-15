@@ -1,0 +1,38 @@
+
+services:
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: php-fpm
+    image: lemp-crud-php:latest
+    container_name: lemp_php
+    restart: unless-stopped
+    environment:
+      DB_HOST: ${DB_HOST:?DB_HOST is required}
+      DB_PORT: ${DB_PORT:-3306}
+      DB_NAME: ${DB_NAME:-appdb}
+      DB_USER: ${DB_USER:?DB_USER is required}
+      DB_PASS: ${DB_PASS:?DB_PASS is required}
+    volumes:
+      - ./src:/var/www/html:ro
+    networks:
+      - lempnet
+
+  nginx:
+    image: nginx:stable-alpine
+    container_name: lemp_nginx
+    restart: unless-stopped
+    ports:
+      - "${HOST_PORT:-8080}:80"
+    depends_on:
+      - php
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./src/public:/var/www/html/public:ro
+    networks:
+      - lempnet
+
+networks:
+  lempnet:
+    driver: bridge
